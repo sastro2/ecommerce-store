@@ -17,7 +17,10 @@ export default function Home(props) {
           {props.products.map((product) => {
             return (
               <li key={product.name}>
-                <Link href={`/products/${product.slug}`}>
+                <Link
+                  href={`/${product.slug}`}
+                  data-test-id="product-<product id>"
+                >
                   <div>
                     imgPath: {product.imgPath}
                     Product name: {product.name}

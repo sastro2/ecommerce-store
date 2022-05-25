@@ -1,11 +1,11 @@
-import { productsDatabase } from '../../util/Database';
+import { productsDatabase } from '../util/Database';
 
 export default function Product(props) {
   return (
     <main>
       <h1>name: {props.product.name}</h1>
       <p>IMAGE</p>
-      <p>price: {props.product.price}</p>
+      <p data-test-id="product-price">price: {props.product.price}</p>
       <p>description: {props.product.description}</p>
     </main>
   );
