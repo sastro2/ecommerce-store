@@ -10,6 +10,7 @@ export default function handler(request, response) {
         currency: 'eur',
         payment_method_types: ['card'],
       });
+      console.log(paymentIntent);
 
       response.send({
         clientSecret: paymentIntent.client_secret,

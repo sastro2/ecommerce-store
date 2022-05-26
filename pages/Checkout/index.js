@@ -31,7 +31,6 @@ export function Checkout() {
     const { error } = await stripeInstance.confirmPayment({
       elements,
       confirmParams: {
-        // Make sure to change this to your payment completion page
         return_url: 'http://localhost:3000/Checkout/success',
       },
     });
@@ -125,7 +124,7 @@ export default function Wrapper(props) {
       await fetch('http://localhost:3000/api/Methods/Checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: 100 }),
+        body: JSON.stringify({ amount: 1000 }),
       })
         .then((res) => res.json())
         .then((data) => {

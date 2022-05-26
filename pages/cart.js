@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import GoToCheckoutButton from '../Components/GoToCheckoutButton';
 import { productsDatabase } from '../util/Database';
 
@@ -28,14 +27,15 @@ export default function Cart(props) {
     let totalPrice = 0;
 
     for (let i = 0; i < localCartData.length; i++) {
-      console.log(totalPrice);
       totalPrice =
         totalPrice +
         localCartData[i].ammountOfItemInCart *
           props.products[localCartData[i].itemID].price;
     }
 
-    console.log(totalPrice);
+    if (totalPrice < 0) {
+      return 'Total price can not be negative';
+    }
 
     return totalPrice;
   };
@@ -60,9 +60,7 @@ export default function Cart(props) {
         })}
       </ul>
       <h2 data-test-id="cart-total">Total price: {calculateTotalPrice()}</h2>
-      <Link href="/Checkout">
-        <GoToCheckoutButton />
-      </Link>
+      <GoToCheckoutButton />
     </main>
   );
 }
