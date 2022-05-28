@@ -2,7 +2,7 @@ import '../styles/globals.css';
 import { useEffect, useState } from 'react';
 import BaseLayout, { GetAmountOfItemsInCart } from '../Components/Layout';
 
-function Rerender(state, props) {
+function Rerender(state) {
   return {
     rerender: !state.rerender,
   };

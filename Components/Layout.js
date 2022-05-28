@@ -1,6 +1,5 @@
 import Cookies from 'js.cookie';
 import Link from 'next/link';
-import { useEffect } from 'react';
 import { getParsedCookie } from '../util/cookies';
 
 const cartCookieKey = 'cart';

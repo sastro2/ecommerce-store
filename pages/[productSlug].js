@@ -61,43 +61,53 @@ export default function Product(props) {
     currentAmount = parseInt(handleAmountOfItem.current.value);
   };
 
-  return (
-    <main>
-      <h1>name: {props.product.name}</h1>
-      <Image src={props.product.imgPath} width="600" height="400" />
-      <p data-test-id="product-price">price: {props.product.price}</p>
-      <p>description: {props.product.description}</p>
-      <select
-        data-test-id="product-quantity"
-        ref={handleAmountOfItem}
-        onChange={ChangeCurrentAmount}
-        defaultValue="1"
-      >
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-      </select>
-      <button data-test-id="product-add-to-cart" onClick={AddProductToCart}>
-        Add to Cart
-      </button>
-      <Link href="http://localhost:3000/Cart">
-        <button>Go to Cart</button>
-      </Link>
-    </main>
-  );
+  if (props.product !== null) {
+    return (
+      <main>
+        <h1>name: {props.product.name}</h1>
+        <Image src={props.product.imgPath} width="450" height="341" />
+        <p data-test-id="product-price">price: {props.product.price}</p>
+        <p>description: {props.product.description}</p>
+        <select
+          data-test-id="product-quantity"
+          ref={handleAmountOfItem}
+          onChange={ChangeCurrentAmount}
+          defaultValue="1"
+        >
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+        <button data-test-id="product-add-to-cart" onClick={AddProductToCart}>
+          Add to Cart
+        </button>
+        <Link href="http://localhost:3000/Cart">
+          <button>Go to Cart</button>
+        </Link>
+      </main>
+    );
+  } else {
+    return <h1>Could not find page</h1>;
+  }
 }
 
 export function getServerSideProps(context) {
   const foundProduct = productsDatabase.find((product) => {
     return product.slug === context.query.productSlug;
-  });
+  })
+    ? productsDatabase.find((product) => {
+        return product.slug === context.query.productSlug;
+      })
+    : null;
+
+  console.log(foundProduct);
 
   return {
     props: {
