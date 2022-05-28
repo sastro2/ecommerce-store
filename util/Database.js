@@ -5,7 +5,7 @@ console.log(fs);
 export const productsDatabase = [
   {
     id: 1,
-    slug: '1',
+    slug: 'cool-item-1',
     name: '1',
     imgPath: '/public/ecommerce_product_dummy_image',
     price: 1,
@@ -13,7 +13,7 @@ export const productsDatabase = [
   },
   {
     id: 2,
-    slug: '2',
+    slug: 'cool-item-2',
     name: '2',
     imgPath: '/public/ecommerce_product_dummy_image',
     price: 2,
@@ -21,7 +21,7 @@ export const productsDatabase = [
   },
   {
     id: 3,
-    slug: '3',
+    slug: 'cool-item-3',
     name: '3',
     imgPath: '/public/ecommerce_product_dummy_image',
     price: 3,
@@ -29,7 +29,7 @@ export const productsDatabase = [
   },
   {
     id: 4,
-    slug: '4',
+    slug: 'cool-item-4',
     name: '4',
     imgPath: '/public/ecommerce_product_dummy_image',
     price: 4,
@@ -37,7 +37,7 @@ export const productsDatabase = [
   },
   {
     id: 5,
-    slug: '5',
+    slug: 'cool-item-5',
     name: '5',
     imgPath: '/public/ecommerce_product_dummy_image',
     price: 5,
@@ -45,7 +45,7 @@ export const productsDatabase = [
   },
   {
     id: 6,
-    slug: '6',
+    slug: 'cool-item-6',
     name: '6',
     imgPath: '/public/ecommerce_product_dummy_image',
     price: 6,
@@ -53,7 +53,7 @@ export const productsDatabase = [
   },
   {
     id: 7,
-    slug: '7',
+    slug: 'cool-item-7',
     name: '7',
     imgPath: '/public/ecommerce_product_dummy_image',
     price: 7,
@@ -61,7 +61,7 @@ export const productsDatabase = [
   },
   {
     id: 8,
-    slug: '8',
+    slug: 'cool-item-8',
     name: '8',
     imgPath: '/public/ecommerce_product_dummy_image',
     price: 8,
@@ -69,7 +69,7 @@ export const productsDatabase = [
   },
   {
     id: 9,
-    slug: '9',
+    slug: 'cool-item-9',
     name: '9',
     imgPath: '/public/ecommerce_product_dummy_image',
     price: 9,

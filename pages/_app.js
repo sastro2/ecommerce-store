@@ -1,10 +1,24 @@
 import '../styles/globals.css';
-import BaseLayout from '../Components/Layout';
+import { useEffect, useState } from 'react';
+import BaseLayout, { GetAmountOfItemsInCart } from '../Components/Layout';
+
+function Rerender(state, props) {
+  return {
+    rerender: !state.rerender,
+  };
+}
 
 function MyApp({ Component, pageProps }) {
+  const [rerender, setRerender] = useState(false);
+
+  useEffect(() => {
+    GetAmountOfItemsInCart();
+    setRerender(Rerender);
+  }, []);
+
   return (
     <BaseLayout>
-      <Component {...pageProps} />
+      <Component {...pageProps} rerender={rerender} setRerender={setRerender} />
     </BaseLayout>
   );
 }

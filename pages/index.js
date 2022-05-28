@@ -19,7 +19,7 @@ export default function Home(props) {
               <li key={product.name}>
                 <Link
                   href={`/${product.slug}`}
-                  data-test-id="product-<product id>"
+                  data-test-id={`product-${product.slug}`}
                 >
                   <div>
                     imgPath: {product.imgPath}

@@ -9,6 +9,7 @@ import {
 } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { useEffect, useState } from 'react';
+import { getParsedCookie } from '../../util/cookies';
 
 export function Checkout() {
   const stripeInstance = useStripe();
@@ -21,6 +22,8 @@ export function Checkout() {
   const [city, setCity] = useState('');
   const [postalCode, setPostalCode] = useState('');
   const [country, setCountry] = useState('');
+
+  const totalPriceCookieKey = 'currentTotalPrice';
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -94,6 +97,7 @@ export function Checkout() {
         data-test-id="checkout-country"
         required
       />
+      <h1>{getParsedCookie(totalPriceCookieKey)}€</h1>
       <PaymentElement>
         <CardNumberElement ata-test-id="checkout-credit-card">
           card number element

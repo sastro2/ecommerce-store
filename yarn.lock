@@ -1079,7 +1079,7 @@
 
 "@emotion/react@^11.9.0":
   version "11.9.0"
-  resolved "https://registry.npmjs.org/@emotion/react/-/react-11.9.0.tgz"
+  resolved "https://registry.yarnpkg.com/@emotion/react/-/react-11.9.0.tgz#b6d42b1db3bd7511e7a7c4151dc8bc82e14593b8"
   integrity sha512-lBVSF5d0ceKtfKCDQJveNAtkC7ayxpVlgOohLgXqRwqWr9bOf4TZAFFyIcNngnV6xK6X4x2ZeXq7vliHkoVkxQ==
   dependencies:
     "@babel/runtime" "^7.13.10"
@@ -3014,6 +3014,11 @@ js-yaml@^4.1.0:
   integrity sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==
   dependencies:
     argparse "^2.0.1"
+
+js.cookie@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/js.cookie/-/js.cookie-0.0.4.tgz#c581270d0403b1c5125f91d5a48295e290e2869a"
+  integrity sha1-xYEnDQQDscUSX5HVpIKV4pDihpo=
 
 jsesc@^2.5.1:
   version "2.5.2"
