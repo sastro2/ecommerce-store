@@ -1,5 +1,7 @@
 import '../styles/globals.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
+import { SSRProvider } from 'react-bootstrap';
 import BaseLayout, { GetAmountOfItemsInCart } from '../Components/Layout';
 
 function Rerender(state) {
@@ -17,9 +19,15 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <BaseLayout>
-      <Component {...pageProps} rerender={rerender} setRerender={setRerender} />
-    </BaseLayout>
+    <SSRProvider>
+      <BaseLayout>
+        <Component
+          {...pageProps}
+          rerender={rerender}
+          setRerender={setRerender}
+        />
+      </BaseLayout>
+    </SSRProvider>
   );
 }
 

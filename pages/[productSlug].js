@@ -1,10 +1,19 @@
+import { css } from '@emotion/react';
 import Cookies from 'js.cookie';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRef } from 'react';
+import { Button, Card } from 'react-bootstrap';
 import { GetAmountOfItemsInCart } from '../Components/Layout';
 import { getParsedCookie, setStringifiedCookie } from '../util/cookies';
 import { productsDatabase } from '../util/Database';
+
+const baseProductSectionStyle = css`
+  margin-top: 50px;
+  display: flex;
+  margin-left: 18%;
+  margin-right: 18%;
+  justify-content: space-between;
+`;
 
 export default function Product(props) {
   const handleAmountOfItem = useRef([]);
@@ -64,33 +73,53 @@ export default function Product(props) {
   if (props.product !== null) {
     return (
       <main>
-        <h1>name: {props.product.name}</h1>
-        <Image src={props.product.imgPath} width="450" height="341" />
-        <p data-test-id="product-price">price: {props.product.price}</p>
-        <p>description: {props.product.description}</p>
-        <select
-          data-test-id="product-quantity"
-          ref={handleAmountOfItem}
-          onChange={ChangeCurrentAmount}
-          defaultValue="1"
-        >
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
-        <button data-test-id="product-add-to-cart" onClick={AddProductToCart}>
-          Add to Cart
-        </button>
-        <Link href="http://localhost:3000/Cart">
-          <button>Go to Cart</button>
-        </Link>
+        <section css={baseProductSectionStyle}>
+          <Image src={props.product.imgPath} width="810" height="614" />
+          <Card style={{ width: '22rem' }}>
+            <Card.Body>
+              <Card.Title>
+                <h1>{props.product.name}</h1>
+              </Card.Title>
+              <Card.Subtitle
+                className="mb-2 text-muted"
+                data-test-id="product-price"
+              >
+                {props.product.price}
+              </Card.Subtitle>
+              <Card.Text>
+                <select
+                  data-test-id="product-quantity"
+                  ref={handleAmountOfItem}
+                  onChange={ChangeCurrentAmount}
+                  defaultValue="1"
+                  placeholder="Qty"
+                >
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </Card.Text>
+              <Button
+                variant="primary"
+                data-test-id="product-add-to-cart"
+                onClick={AddProductToCart}
+              >
+                Add to Cart
+              </Button>
+              <Button href="http://localhost:3000/Cart" variant="secondary">
+                Go to Cart
+              </Button>
+              <p>description: {props.product.description}</p>
+            </Card.Body>
+          </Card>
+        </section>
       </main>
     );
   } else {

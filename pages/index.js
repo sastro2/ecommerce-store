@@ -1,8 +1,29 @@
+import { css } from '@emotion/react';
 import Head from 'next/head';
-import Link from 'next/link';
+import { Button, Card, Carousel, Col, Container, Row } from 'react-bootstrap';
 import { productsDatabase } from '../util/Database';
 
+const carouselStyles = css`
+  height: 800px;
+`;
+const carouselImageStyle = css`
+  height: 800px;
+`;
+
+const baseProductsGridStyle = css`
+  margin-left: 350px;
+  margin-top: 50px;
+`;
+
+const productCardStyle = css`
+  margin-top: 15px;
+`;
+
 export default function Home(props) {
+  const firstRow = props.productsToDisplay.slice(0, 3);
+  const secondRow = props.productsToDisplay.slice(3, 6);
+  const thirdRow = props.productsToDisplay.slice(6, 9);
+
   return (
     <div>
       <Head>
@@ -12,39 +33,137 @@ export default function Home(props) {
       </Head>
 
       <main>
-        <h1>MY STORE</h1>
-        <ul>
-          {props.products.map((product) => {
-            return (
-              <li key={product.name}>
-                <Link
-                  href={`/${product.slug}`}
-                  data-test-id={`product-${product.slug}`}
-                >
-                  <div>
-                    imgPath: {product.imgPath}
-                    Product name: {product.name}
-                    Product description: {product.description}
-                    Product price: {product.price}
-                  </div>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        <Carousel css={carouselStyles} variant="dark">
+          <Carousel.Item>
+            <img
+              css={carouselImageStyle}
+              className="d-block w-100 h-70"
+              src="https://hinacreates.com/wp-content/uploads/2021/06/dummy2.png"
+              alt="First slide"
+            />
+            <Carousel.Caption>
+              <h3>First slide label</h3>
+              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              css={carouselImageStyle}
+              className="d-block w-100 h-70"
+              src="https://hinacreates.com/wp-content/uploads/2021/06/dummy2.png"
+              alt="Second slide"
+            />
+
+            <Carousel.Caption>
+              <h3>Second slide label</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              css={carouselImageStyle}
+              className="d-block w-100 h-70"
+              src="https://hinacreates.com/wp-content/uploads/2021/06/dummy2.png"
+              alt="Third slide"
+            />
+
+            <Carousel.Caption>
+              <h3>Third slide label</h3>
+              <p>
+                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+              </p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
+
+        <Container css={baseProductsGridStyle}>
+          <Row md={5}>
+            <Col md={1} />
+            {firstRow.map((product) => {
+              return (
+                <Col key={product.name} md={3} css={productCardStyle}>
+                  <Card style={{ width: '18rem' }}>
+                    <Card.Img variant="top" src={product.imgPath} />
+                    <Card.Body>
+                      <Card.Title>{product.name}</Card.Title>
+                      <Card.Text>
+                        {product.description} {product.price}
+                      </Card.Text>
+                      <Button
+                        variant="primary"
+                        href={`/${product.slug}`}
+                        data-test-id={`product-${product.slug}`}
+                      >
+                        Go to product
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              );
+            })}
+          </Row>
+          <Row md={5}>
+            <Col md={1} />
+            {secondRow.map((product) => {
+              return (
+                <Col key={product.name} md={3} css={productCardStyle}>
+                  <Card style={{ width: '18rem' }}>
+                    <Card.Img variant="top" src={product.imgPath} />
+                    <Card.Body>
+                      <Card.Title>{product.name}</Card.Title>
+                      <Card.Text>
+                        {product.description} {product.price}
+                      </Card.Text>
+                      <Button
+                        variant="primary"
+                        href={`/${product.slug}`}
+                        data-test-id={`product-${product.slug}`}
+                      >
+                        Go to product
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              );
+            })}
+          </Row>
+          <Row md={5}>
+            <Col md={1} />
+            {thirdRow.map((product) => {
+              return (
+                <Col key={product.name} md={3} css={productCardStyle}>
+                  <Card style={{ width: '18rem' }}>
+                    <Card.Img variant="top" src={product.imgPath} />
+                    <Card.Body>
+                      <Card.Title>{product.name}</Card.Title>
+                      <Card.Text>
+                        {product.description} {product.price}
+                      </Card.Text>
+                      <Button
+                        variant="primary"
+                        href={`/${product.slug}`}
+                        data-test-id={`product-${product.slug}`}
+                      >
+                        Go to product
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              );
+            })}
+          </Row>
+        </Container>
       </main>
     </div>
   );
 }
 
 export function getServerSideProps() {
-  const rearrangedProducts = productsDatabase.sort(function () {
-    return 0.5 - Math.random();
-  });
+  const originalProducts = productsDatabase;
 
   return {
     props: {
-      products: rearrangedProducts,
+      productsToDisplay: originalProducts,
     },
   };
 }

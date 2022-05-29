@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import {
   CardCvcElement,
   CardExpiryElement,
@@ -10,20 +11,19 @@ import {
 import { loadStripe } from '@stripe/stripe-js';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
+import { Accordion } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { getParsedCookie } from '../../util/cookies';
+
+const baseFormStyle = css`
+  margin-top: 75px;
+  margin-left: 450px;
+  margin-right: 450px;
+`;
 
 export function Checkout() {
   const stripeInstance = useStripe();
   const elements = useElements();
-
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [adress, setAdress] = useState('');
-  const [city, setCity] = useState('');
-  const [postalCode, setPostalCode] = useState('');
-  const [country, setCountry] = useState('');
 
   const totalPriceCookieKey = 'currentTotalPrice';
 
@@ -58,7 +58,7 @@ export function Checkout() {
         .required('Required'),
       email: Yup.string().email('Invalid email address').required('Required'),
       adress: Yup.string()
-        .matches(/[!@$%^&*(),?":{}|<>]/g, 'Must be a valid Adress')
+        .matches(/[A-Za-z0-9'.\-\s,]/g, 'Must be a valid Adress')
         .required('Required'),
       city: Yup.string()
         .matches(
@@ -85,117 +85,129 @@ export function Checkout() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        onChange={formik.handleChange}
-        value={formik.values.firstName}
-        onBlur={formik.handleBlur}
-        placeholder="First name"
-        id="firstName"
-        name="firstName"
-        data-test-id="checkout-first-name"
-        required
-      />
-      {formik.touched.firstName && formik.errors.firstName ? (
-        <div>{formik.errors.firstName}</div>
-      ) : null}
-      <input
-        onChange={formik.handleChange}
-        value={formik.values.lastName}
-        onBlur={formik.handleBlur}
-        placeholder="Last name"
-        id="lastName"
-        name="lastName"
-        data-test-id="checkout-last-name"
-        required
-      />
-      {formik.touched.lastName && formik.errors.lastName ? (
-        <div>{formik.errors.lastName}</div>
-      ) : null}
-      <input
-        onChange={formik.handleChange}
-        value={formik.values.email}
-        onBlur={formik.handleBlur}
-        placeholder="Email adress"
-        id="email"
-        name="email"
-        data-test-id="checkout-email"
-        required
-      />
-      {formik.touched.email && formik.errors.email ? (
-        <div>{formik.errors.email}</div>
-      ) : null}
-      <input
-        onChange={formik.handleChange}
-        value={formik.values.adress}
-        onBlur={formik.handleBlur}
-        placeholder="Adress"
-        id="adress"
-        name="adress"
-        data-test-id="checkout-address"
-        required
-      />
-      {formik.touched.adress && formik.errors.adress ? (
-        <div>{formik.errors.adress}</div>
-      ) : null}
-      <input
-        onChange={formik.handleChange}
-        value={formik.values.city}
-        onBlur={formik.handleBlur}
-        placeholder="City"
-        id="city"
-        name="city"
-        data-test-id="checkout-city"
-        required
-      />
-      {formik.touched.city && formik.errors.city ? (
-        <div>{formik.errors.city}</div>
-      ) : null}
-      <input
-        onChange={formik.handleChange}
-        value={formik.values.postalCode}
-        onBlur={formik.handleBlur}
-        placeholder="Postal code"
-        id="postalCode"
-        name="postalCode"
-        data-test-id="checkout-postal-code"
-        required
-      />
-      {formik.touched.postalCode && formik.errors.postalCode ? (
-        <div>{formik.errors.postalCode}</div>
-      ) : null}
-      <input
-        onChange={formik.handleChange}
-        value={formik.values.country}
-        onBlur={formik.handleBlur}
-        placeholder="Country"
-        id="country"
-        name="country"
-        data-test-id="checkout-country"
-        required
-      />
-      {formik.touched.country && formik.errors.country ? (
-        <div>{formik.errors.country}</div>
-      ) : null}
-      <h1>{getParsedCookie(totalPriceCookieKey)}€</h1>
-      <PaymentElement>
-        <CardNumberElement ata-test-id="checkout-credit-card">
-          card number element
-        </CardNumberElement>
-        <CardExpiryElement data-test-id="checkout-expiration-date">
-          card expiry element
-        </CardExpiryElement>
-        <CardCvcElement data-test-id="checkout-security-code">
-          card cvc element
-        </CardCvcElement>
-      </PaymentElement>
-      <button
-        data-test-id="checkout-confirm-order"
-        type="submit"
-        disabled={!stripeInstance}
-      >
-        Confirm Order
-      </button>
+    <form onSubmit={handleSubmit} css={baseFormStyle}>
+      <Accordion defaultActiveKey="0">
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>Personal data</Accordion.Header>
+          <Accordion.Body>
+            <input
+              onChange={formik.handleChange}
+              value={formik.values.firstName}
+              onBlur={formik.handleBlur}
+              placeholder="First name"
+              id="firstName"
+              name="firstName"
+              data-test-id="checkout-first-name"
+              required
+            />
+            {formik.touched.firstName && formik.errors.firstName ? (
+              <div>{formik.errors.firstName}</div>
+            ) : null}
+            <input
+              onChange={formik.handleChange}
+              value={formik.values.lastName}
+              onBlur={formik.handleBlur}
+              placeholder="Last name"
+              id="lastName"
+              name="lastName"
+              data-test-id="checkout-last-name"
+              required
+            />
+            {formik.touched.lastName && formik.errors.lastName ? (
+              <div>{formik.errors.lastName}</div>
+            ) : null}
+            <input
+              onChange={formik.handleChange}
+              value={formik.values.email}
+              onBlur={formik.handleBlur}
+              placeholder="Email adress"
+              id="email"
+              name="email"
+              data-test-id="checkout-email"
+              required
+            />
+            {formik.touched.email && formik.errors.email ? (
+              <div>{formik.errors.email}</div>
+            ) : null}
+            <input
+              onChange={formik.handleChange}
+              value={formik.values.adress}
+              onBlur={formik.handleBlur}
+              placeholder="Adress"
+              id="adress"
+              name="adress"
+              data-test-id="checkout-address"
+              required
+            />
+            {formik.touched.adress && formik.errors.adress ? (
+              <div>{formik.errors.adress}</div>
+            ) : null}
+            <input
+              onChange={formik.handleChange}
+              value={formik.values.city}
+              onBlur={formik.handleBlur}
+              placeholder="City"
+              id="city"
+              name="city"
+              data-test-id="checkout-city"
+              required
+            />
+            {formik.touched.city && formik.errors.city ? (
+              <div>{formik.errors.city}</div>
+            ) : null}
+            <input
+              onChange={formik.handleChange}
+              value={formik.values.postalCode}
+              onBlur={formik.handleBlur}
+              placeholder="Postal code"
+              id="postalCode"
+              name="postalCode"
+              data-test-id="checkout-postal-code"
+              required
+            />
+            {formik.touched.postalCode && formik.errors.postalCode ? (
+              <div>{formik.errors.postalCode}</div>
+            ) : null}
+            <input
+              onChange={formik.handleChange}
+              value={formik.values.country}
+              onBlur={formik.handleBlur}
+              placeholder="Country"
+              id="country"
+              name="country"
+              data-test-id="checkout-country"
+              required
+            />
+            {formik.touched.country && formik.errors.country ? (
+              <div>{formik.errors.country}</div>
+            ) : null}
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="1">
+          <Accordion.Header>Checkout with Stripe</Accordion.Header>
+          <Accordion.Body>
+            <h1>{getParsedCookie(totalPriceCookieKey)}€</h1>
+            <PaymentElement>
+              <CardNumberElement ata-test-id="checkout-credit-card">
+                card number element
+              </CardNumberElement>
+              <CardExpiryElement data-test-id="checkout-expiration-date">
+                card expiry element
+              </CardExpiryElement>
+              <CardCvcElement data-test-id="checkout-security-code">
+                card cvc element
+              </CardCvcElement>
+            </PaymentElement>
+            <button
+              data-test-id="checkout-confirm-order"
+              type="submit"
+              disabled={!stripeInstance}
+            >
+              Confirm Order
+            </button>
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
     </form>
   );
 }
