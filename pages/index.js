@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import { Button, Card, Carousel, Col, Container, Row } from 'react-bootstrap';
-import { productsDatabase } from '../util/Database';
+import { GetAllProducts } from '../util/Database';
 
 const carouselStyles = css`
   height: 800px;
@@ -81,18 +81,18 @@ export default function Home(props) {
             <Col md={1} />
             {firstRow.map((product) => {
               return (
-                <Col key={product.name} md={3} css={productCardStyle}>
+                <Col key={product.product_name} md={3} css={productCardStyle}>
                   <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src={product.imgPath} />
+                    <Card.Img variant="top" src={product.product_imgpath} />
                     <Card.Body>
-                      <Card.Title>{product.name}</Card.Title>
+                      <Card.Title>{product.product_name}</Card.Title>
                       <Card.Text>
-                        {product.description} {product.price}
+                        {product.product_description} {product.product_price}
                       </Card.Text>
                       <Button
                         variant="primary"
-                        href={`/${product.slug}`}
-                        data-test-id={`product-${product.slug}`}
+                        href={`/${product.product_slug}`}
+                        data-test-id={`product-${product.product_slug}`}
                       >
                         Go to product
                       </Button>
@@ -106,18 +106,18 @@ export default function Home(props) {
             <Col md={1} />
             {secondRow.map((product) => {
               return (
-                <Col key={product.name} md={3} css={productCardStyle}>
+                <Col key={product.product_name} md={3} css={productCardStyle}>
                   <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src={product.imgPath} />
+                    <Card.Img variant="top" src={product.product_imgpath} />
                     <Card.Body>
-                      <Card.Title>{product.name}</Card.Title>
+                      <Card.Title>{product.product_name}</Card.Title>
                       <Card.Text>
-                        {product.description} {product.price}
+                        {product.product_description} {product.product_price}
                       </Card.Text>
                       <Button
                         variant="primary"
-                        href={`/${product.slug}`}
-                        data-test-id={`product-${product.slug}`}
+                        href={`/${product.product_slug}`}
+                        data-test-id={`product-${product.product_slug}`}
                       >
                         Go to product
                       </Button>
@@ -131,18 +131,18 @@ export default function Home(props) {
             <Col md={1} />
             {thirdRow.map((product) => {
               return (
-                <Col key={product.name} md={3} css={productCardStyle}>
+                <Col key={product.product_name} md={3} css={productCardStyle}>
                   <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src={product.imgPath} />
+                    <Card.Img variant="top" src={product.product_imgpath} />
                     <Card.Body>
-                      <Card.Title>{product.name}</Card.Title>
+                      <Card.Title>{product.product_name}</Card.Title>
                       <Card.Text>
-                        {product.description} {product.price}
+                        {product.product_description} {product.product_price}
                       </Card.Text>
                       <Button
                         variant="primary"
-                        href={`/${product.slug}`}
-                        data-test-id={`product-${product.slug}`}
+                        href={`/${product.product_slug}`}
+                        data-test-id={`product-${product.product_slug}`}
                       >
                         Go to product
                       </Button>
@@ -158,12 +158,12 @@ export default function Home(props) {
   );
 }
 
-export function getServerSideProps() {
-  const originalProducts = productsDatabase;
+export async function getServerSideProps() {
+  const products = await GetAllProducts();
 
   return {
     props: {
-      productsToDisplay: originalProducts,
+      productsToDisplay: products,
     },
   };
 }

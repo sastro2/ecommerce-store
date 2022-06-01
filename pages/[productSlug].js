@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { GetAmountOfItemsInCart } from '../Components/Layout';
 import { getParsedCookie, setStringifiedCookie } from '../util/cookies';
-import { productsDatabase } from '../util/Database';
+import { GetAllProducts } from '../util/Database';
 
 const baseProductSectionStyle = css`
   margin-top: 50px;
@@ -74,17 +74,17 @@ export default function Product(props) {
     return (
       <main>
         <section css={baseProductSectionStyle}>
-          <Image src={props.product.imgPath} width="810" height="614" />
+          <Image src={props.product.product_imgpath} width="810" height="614" />
           <Card style={{ width: '22rem' }}>
             <Card.Body>
               <Card.Title>
-                <h1>{props.product.name}</h1>
+                <h1>{props.product.product_name}</h1>
               </Card.Title>
               <Card.Subtitle
                 className="mb-2 text-muted"
                 data-test-id="product-price"
               >
-                {props.product.price}
+                {props.product.product_price}
               </Card.Subtitle>
               <Card.Text>
                 <select
@@ -116,7 +116,7 @@ export default function Product(props) {
               <Button href="http://localhost:3000/Cart" variant="secondary">
                 Go to Cart
               </Button>
-              <p>description: {props.product.description}</p>
+              <p>{props.product.product_description}</p>
             </Card.Body>
           </Card>
         </section>
@@ -127,12 +127,14 @@ export default function Product(props) {
   }
 }
 
-export function getServerSideProps(context) {
-  const foundProduct = productsDatabase.find((product) => {
-    return product.slug === context.query.productSlug;
+export async function getServerSideProps(context) {
+  const products = await GetAllProducts();
+  console.log(products);
+  const foundProduct = products.find((product) => {
+    return product.product_slug === context.query.productSlug;
   })
-    ? productsDatabase.find((product) => {
-        return product.slug === context.query.productSlug;
+    ? products.find((product) => {
+        return product.product_slug === context.query.productSlug;
       })
     : null;
 

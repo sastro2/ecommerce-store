@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import Cookies from 'js.cookie';
+import { useRef, useState } from 'react';
 import {
-  Button,
   Container,
   Form,
   FormControl,
@@ -10,6 +10,7 @@ import {
   NavDropdown,
 } from 'react-bootstrap';
 import { getParsedCookie } from '../util/cookies';
+import SearchPage from './SearchPage';
 
 const baseNavbarStyle = css`
   display: flex;
@@ -17,6 +18,7 @@ const baseNavbarStyle = css`
 
 const cartCookieKey = 'cart';
 let amountOfItemsInCart;
+let productsToDisplay;
 
 export const GetAmountOfItemsInCart = () => {
   const currentCart = Cookies.get(cartCookieKey)
@@ -29,6 +31,20 @@ export const GetAmountOfItemsInCart = () => {
 };
 
 export default function BaseLayout(props) {
+  const [searching, setSearching] = useState(false);
+
+  const handleSearchbar = useRef();
+
+  const HandleSearchbarInput = async () => {
+    const currentInput = handleSearchbar.current.value;
+    const response = await fetch(
+      `http://localhost:3000/api/Data/Products/GetFilteredProducts?searchInput=${currentInput}`,
+    );
+    productsToDisplay = await response.json();
+    setSearching(true);
+    props.setRerender(!props.rerender);
+  };
+
   return (
     <>
       <Navbar bg="dark" expand="lg" variant="dark" css={baseNavbarStyle}>
@@ -69,13 +85,18 @@ export default function BaseLayout(props) {
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
+                onKeyDown={HandleSearchbarInput}
+                ref={handleSearchbar}
               />
-              <Button variant="outline-light">Search</Button>
             </Form>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {props.children}
+      {searching ? (
+        <SearchPage productsToDisplay={productsToDisplay} />
+      ) : (
+        props.children
+      )}
       <footer>Copyright n stuff</footer>
     </>
   );

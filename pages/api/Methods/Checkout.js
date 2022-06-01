@@ -1,3 +1,7 @@
+import { config } from 'dotenv-safe';
+
+config();
+
 const stripe = require('stripe')(
   'sk_test_51L3KVWFLsAebFWQri6qZ0ubFOVGfD0IBjuy6WkgaJSTETPYGDLy6qKAcpjlCiIK6MUBtzMCGOPF63b8OWpijCyQp00LdYHWZnB',
 );

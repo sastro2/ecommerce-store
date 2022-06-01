@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <SSRProvider>
-      <BaseLayout>
+      <BaseLayout rerender={rerender} setRerender={setRerender}>
         <Component
           {...pageProps}
           rerender={rerender}

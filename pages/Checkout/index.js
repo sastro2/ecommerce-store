@@ -37,6 +37,9 @@ export function Checkout() {
         return_url: 'http://localhost:3000/Checkout/success',
       },
     });
+    if (error.type === 'card_error' || error.type === 'validation_error') {
+      alert(error.message);
+    }
   };
 
   const formik = useFormik({

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { GetAmountOfItemsInCart } from '../Components/Layout';
 import { getParsedCookie, setStringifiedCookie } from '../util/cookies';
-import { productsDatabase } from '../util/Database';
+import { GetAllProducts } from '../util/Database';
 
 const baseCartStyle = css`
   display: flex;
@@ -54,7 +54,7 @@ export default function Cart(props) {
       totalPrice =
         totalPrice +
         localCartData[i].amount *
-          props.products[localCartData[i].itemId - 1].price;
+          props.products[localCartData[i].itemId - 1].product_price;
     }
 
     if (totalPrice < 0) {
@@ -115,20 +115,22 @@ export default function Cart(props) {
           return (
             <article
               key={`cartItem-${item.itemId}`}
-              data-test-id={`cart-product-${currentItem.slug}`}
+              data-test-id={`cart-product-${currentItem.product_slug}`}
               css={productContainerStyle}
             >
               <div css={productNameStyle}>
-                <h1>{currentItem.name}</h1>
+                <h1>{currentItem.product_name}</h1>
                 <button
-                  data-test-id={`cart-product-remove-${currentItem.slug}`}
+                  data-test-id={`cart-product-remove-${currentItem.product_slug}`}
                   onClick={() => RemoveItem(item)}
                 >
                   Remove
                 </button>
               </div>
               <div>
-                <p data-test-id={`cart-product-quantity-${currentItem.slug}`}>
+                <p
+                  data-test-id={`cart-product-quantity-${currentItem.product_slug}`}
+                >
                   Amount:{' '}
                   <select
                     ref={(element) => {
@@ -150,7 +152,7 @@ export default function Cart(props) {
                     <option value="customAmount">Custom Amount</option>
                   </select>
                 </p>
-                <p>Price: {currentItem.price}</p>
+                <p>Price: {currentItem.product_price}</p>
               </div>
             </article>
           );
@@ -173,9 +175,9 @@ export default function Cart(props) {
   );
 }
 
-export function getServerSideProps(context) {
+export async function getServerSideProps(context) {
   const currentCart = JSON.parse(context.req.cookies.cart || '[]');
-  const products = productsDatabase;
+  const products = await GetAllProducts();
 
   return {
     props: {
