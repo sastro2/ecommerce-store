@@ -60,7 +60,7 @@ export default function Product(props) {
     }
     if (newCart) {
       setStringifiedCookie(cartCookieKey, newCart);
-      GetAmountOfItemsInCart(props);
+      GetAmountOfItemsInCart();
       props.setRerender(!props.rerender);
     }
   };
