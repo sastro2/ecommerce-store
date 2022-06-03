@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import Cookies from 'js.cookie';
+import Cookies from 'js-cookie';
 import { useRef, useState } from 'react';
 import {
   Container,
@@ -85,7 +85,7 @@ export default function BaseLayout(props) {
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
-                onKeyDown={HandleSearchbarInput}
+                onChange={HandleSearchbarInput}
                 ref={handleSearchbar}
               />
             </Form>

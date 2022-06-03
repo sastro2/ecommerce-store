@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
-import Cookies from 'js.cookie';
+import Cookies from 'js-cookie';
+import { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { useRef } from 'react';
 import { Button, Card } from 'react-bootstrap';
@@ -15,59 +16,57 @@ const baseProductSectionStyle = css`
   justify-content: space-between;
 `;
 
-export default function Product(props) {
-  const handleAmountOfItem = useRef([]);
+type ProductPageProps = {
+  product: Product | null;
+  rerender: boolean;
+  setRerender: (rerender: boolean) => void;
+};
 
-  const cartCookieKey = 'cart';
-  let currentAmount = 1;
+export default function Product(props: ProductPageProps) {
+  const handleAmountOfItem = useRef<HTMLSelectElement>(null);
 
-  // const CharCheck = (e) => {
-  // if (
-  // (e.keyCode >= 48 && e.keyCode <= 57) ||
-  // e.keyCode === 8 ||
-  // (e.keyCode >= 37 && e.keyCode <= 40)
-  // ) {
-  // return;
-  // } else {
-  // e.preventDefault();
-  // }
-  // };
+  const cartCookieKey: string = 'cart';
+  let currentAmount: number = 1;
 
   const AddProductToCart = () => {
-    let newCart;
-    const currentCart = Cookies.get(cartCookieKey)
-      ? getParsedCookie(cartCookieKey)
-      : [];
-    const itemInCookie = currentCart.find((item) => {
-      return item.itemId === props.product.id;
-    });
+    let newCart: CookieCartItem[] = [];
 
-    if (itemInCookie) {
-      newCart = currentCart.map((item) => {
-        if (item.itemId === props.product.id) {
-          return { itemId: item.itemId, amount: item.amount + currentAmount };
-        } else {
-          return item;
+    if (props.product) {
+      const currentCart: CookieCartItem[] = Cookies.get(cartCookieKey)
+        ? getParsedCookie(cartCookieKey)
+        : [];
+      const itemInCookie: CookieCartItem | undefined = currentCart.find(
+        (item: CookieCartItem) => {
+          return item.itemId === props.product?.id;
+        },
+      );
+
+      if (itemInCookie) {
+        newCart = currentCart.map((item: CookieCartItem) => {
+          if (item.itemId === props.product?.id) {
+            return { itemId: item.itemId, amount: item.amount + currentAmount };
+          } else {
+            return item;
+          }
+        });
+      } else {
+        if (currentAmount > 0) {
+          newCart = [
+            ...currentCart,
+            { itemId: props.product.id, amount: currentAmount },
+          ];
         }
-      });
-    } else {
-      if (currentAmount > 0) {
-        newCart = [
-          ...currentCart,
-          { itemId: props.product.id, amount: currentAmount },
-        ];
       }
     }
-    if (newCart) {
-      setStringifiedCookie(cartCookieKey, newCart);
-      GetAmountOfItemsInCart();
-      props.setRerender(!props.rerender);
-    }
+    setStringifiedCookie(cartCookieKey, newCart);
+    GetAmountOfItemsInCart();
+    props.setRerender(!props.rerender);
   };
 
   const ChangeCurrentAmount = () => {
-    console.log(handleAmountOfItem.current.value);
-    currentAmount = parseInt(handleAmountOfItem.current.value);
+    if (handleAmountOfItem.current?.value) {
+      currentAmount = parseInt(handleAmountOfItem.current.value);
+    }
   };
 
   if (props.product !== null) {
@@ -127,7 +126,7 @@ export default function Product(props) {
   }
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const products = await GetAllProducts();
   console.log(products);
   const foundProduct = products.find((product) => {

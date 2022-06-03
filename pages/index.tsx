@@ -19,7 +19,11 @@ const productCardStyle = css`
   margin-top: 15px;
 `;
 
-export default function Home(props) {
+type IndexProps = {
+  productsToDisplay: Product[];
+};
+
+export default function Home(props: IndexProps) {
   const firstRow = props.productsToDisplay.slice(0, 3);
   const secondRow = props.productsToDisplay.slice(3, 6);
   const thirdRow = props.productsToDisplay.slice(6, 9);

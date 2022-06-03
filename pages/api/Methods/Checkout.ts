@@ -1,4 +1,5 @@
 import { config } from 'dotenv-safe';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 config();
 
@@ -6,7 +7,10 @@ const stripe = require('stripe')(
   'sk_test_51L3KVWFLsAebFWQri6qZ0ubFOVGfD0IBjuy6WkgaJSTETPYGDLy6qKAcpjlCiIK6MUBtzMCGOPF63b8OWpijCyQp00LdYHWZnB',
 );
 
-export default function handler(request, response) {
+export default function handler(
+  request: NextApiRequest,
+  response: NextApiResponse,
+) {
   async function CreatePaymentIntent() {
     try {
       const paymentIntent = await stripe.paymentIntents.create({
