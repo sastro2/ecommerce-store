@@ -52,7 +52,7 @@ export default function BaseLayout(props) {
   const HandleSearchbarInput = async () => {
     const currentInput = handleSearchbar.current.value;
     const response = await fetch(
-      `http://localhost:3000/api/Data/Products/GetFilteredProducts?searchInput=${currentInput}`,
+      `http://examplestore-test/api/Data/Products/GetFilteredProducts?searchInput=${currentInput}`,
     );
     productsToDisplay = await response.json();
     setSearching(true);
@@ -73,22 +73,22 @@ export default function BaseLayout(props) {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Nav.Link
-                  href="http://localhost:3000/"
+                  href="http://examplestore-test/"
                   data-test-id="products-link"
                 >
                   Home
                 </Nav.Link>
                 <Nav.Link
-                  href="http://localhost:3000/Cart"
+                  href="http://examplestore-test/Cart"
                   data-test-id="cart-count"
                 >
                   Cart: {amountOfItemsInCart}
                 </Nav.Link>
                 <NavDropdown title="User" id="basic-nav-dropdown">
-                  <NavDropdown.Item href="http://localhost:3000/User/Login">
+                  <NavDropdown.Item href="http://examplestore-test/User/Login">
                     Log In
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="http://localhost:3000/User/Register">
+                  <NavDropdown.Item href="http://examplestore-test/User/Register">
                     Register
                   </NavDropdown.Item>
                 </NavDropdown>
@@ -125,26 +125,26 @@ export default function BaseLayout(props) {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link
-                href="http://localhost:3000/"
+                href="http://examplestore-test/"
                 data-test-id="products-link"
               >
                 Home
               </Nav.Link>
               <Nav.Link
-                href="http://localhost:3000/Cart"
+                href="http://examplestore-test/Cart"
                 data-test-id="cart-count"
               >
                 Cart: {amountOfItemsInCart}
               </Nav.Link>
               <NavDropdown title="User" id="basic-nav-dropdown">
                 <NavDropdown.Item
-                  href={`http://localhost:3000/User/Profile/${userId}`}
+                  href={`http://examplestore-test/User/Profile/${userId}`}
                 >
                   Profile
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item
-                  href="http://localhost:3000/User/Logout"
+                  href="http://examplestore-test/User/Logout"
                   onClick={handleLogout}
                 >
                   Log out

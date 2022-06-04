@@ -4,5 +4,5 @@ export default function handler(
   request: NextApiRequest,
   response: NextApiResponse,
 ) {
-  response.json({ Checkout: 'http://localhost:3000/api/Data/Products' });
+  response.json({ Checkout: 'http://examplestore-test/api/Data/Products' });
 }

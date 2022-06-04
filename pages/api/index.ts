@@ -5,7 +5,7 @@ export default function handler(
   response: NextApiResponse,
 ) {
   response.json({
-    Data: 'http://localhost:3000/api/Data',
-    Methods: 'http://localhost:3000/api/Methods',
+    Data: 'http://examplestore-test/api/Data',
+    Methods: 'http://examplestore-test/api/Methods',
   });
 }

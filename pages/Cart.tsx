@@ -183,7 +183,7 @@ export default function Cart(props: CartProps) {
             </Card.Title>
             <Button
               data-test-id="cart-checkout"
-              href="http://localhost:3000/Checkout"
+              href="http://examplestore-test/Checkout"
             >
               Go to checkout
             </Button>
