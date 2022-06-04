@@ -22,43 +22,52 @@ type ProductPageProps = {
   setRerender: (rerender: boolean) => void;
 };
 
+export const addProductToCart = (
+  currentAmount: number,
+  cartCookieKey: string,
+  product: Product | null,
+) => {
+  let newCart: CookieCartItem[] = [];
+
+  if (product) {
+    const currentCart: CookieCartItem[] = Cookies.get(cartCookieKey)
+      ? getParsedCookie(cartCookieKey)
+      : [];
+    const itemInCookie: CookieCartItem | undefined = currentCart.find(
+      (item: CookieCartItem) => {
+        return item.itemId === product.id;
+      },
+    );
+
+    if (itemInCookie) {
+      newCart = currentCart.map((item: CookieCartItem) => {
+        if (item.itemId === product.id) {
+          return { itemId: item.itemId, amount: item.amount + currentAmount };
+        } else {
+          return item;
+        }
+      });
+    } else {
+      if (currentAmount > 0) {
+        newCart = [
+          ...currentCart,
+          { itemId: product.id, amount: currentAmount },
+        ];
+      }
+    }
+  }
+  console.log(newCart);
+  setStringifiedCookie(cartCookieKey, newCart);
+};
+
 export default function Product(props: ProductPageProps) {
   const handleAmountOfItem = useRef<HTMLSelectElement>(null);
 
   const cartCookieKey: string = 'cart';
   let currentAmount: number = 1;
 
-  const AddProductToCart = () => {
-    let newCart: CookieCartItem[] = [];
-
-    if (props.product) {
-      const currentCart: CookieCartItem[] = Cookies.get(cartCookieKey)
-        ? getParsedCookie(cartCookieKey)
-        : [];
-      const itemInCookie: CookieCartItem | undefined = currentCart.find(
-        (item: CookieCartItem) => {
-          return item.itemId === props.product?.id;
-        },
-      );
-
-      if (itemInCookie) {
-        newCart = currentCart.map((item: CookieCartItem) => {
-          if (item.itemId === props.product?.id) {
-            return { itemId: item.itemId, amount: item.amount + currentAmount };
-          } else {
-            return item;
-          }
-        });
-      } else {
-        if (currentAmount > 0) {
-          newCart = [
-            ...currentCart,
-            { itemId: props.product.id, amount: currentAmount },
-          ];
-        }
-      }
-    }
-    setStringifiedCookie(cartCookieKey, newCart);
+  const handleAddToCartClick = () => {
+    addProductToCart(currentAmount, cartCookieKey, props.product);
     GetAmountOfItemsInCart();
     props.setRerender(!props.rerender);
   };
@@ -108,7 +117,7 @@ export default function Product(props: ProductPageProps) {
               <Button
                 variant="primary"
                 data-test-id="product-add-to-cart"
-                onClick={AddProductToCart}
+                onClick={handleAddToCartClick}
               >
                 Add to Cart
               </Button>

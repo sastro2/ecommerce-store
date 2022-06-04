@@ -36,6 +36,31 @@ type CartProps = {
   setRerender: (rerender: boolean) => void;
 };
 
+export const calculate = (
+  localCartData: CookieCartItem[],
+  products: Product[],
+  totalPriceCookieKey: string,
+) => {
+  let totalPrice = 0;
+
+  for (let i = 0; i < localCartData.length; i++) {
+    totalPrice =
+      totalPrice +
+      localCartData[i].amount *
+        products[localCartData[i].itemId - 1].product_price;
+  }
+
+  if (totalPrice < 0) {
+    return 'Total price can not be negative';
+  }
+
+  if (typeof window !== 'undefined') {
+    setStringifiedCookie(totalPriceCookieKey, totalPrice);
+  }
+
+  return totalPrice;
+};
+
 export default function Cart(props: CartProps) {
   const [localCartData, setLocalCartData] = useState(props.cart);
 
@@ -56,22 +81,11 @@ export default function Cart(props: CartProps) {
   console.log(props.products);
 
   const calculateTotalPrice = () => {
-    let totalPrice = 0;
-
-    for (let i = 0; i < localCartData.length; i++) {
-      totalPrice =
-        totalPrice +
-        localCartData[i].amount *
-          props.products[localCartData[i].itemId - 1].product_price;
-    }
-
-    if (totalPrice < 0) {
-      return 'Total price can not be negative';
-    }
-
-    if (typeof window !== 'undefined') {
-      setStringifiedCookie(totalPriceCookieKey, totalPrice);
-    }
+    const totalPrice = calculate(
+      localCartData,
+      props.products,
+      totalPriceCookieKey,
+    );
 
     return totalPrice;
   };
@@ -134,14 +148,13 @@ export default function Cart(props: CartProps) {
                     </button>
                   </div>
                   <div>
-                    <p
-                      data-test-id={`cart-product-quantity-${currentItem.product_slug}`}
-                    >
+                    <p>
                       Amount:{' '}
                       <select
                         ref={handleAmountOfItem}
                         onChange={() => ChangeCurrentAmount(item)}
                         defaultValue={item.amount.toString()}
+                        data-test-id={`cart-product-quantity-${currentItem.product_slug}`}
                       >
                         <option value="1">1</option>
                         <option value="2">2</option>
