@@ -72,7 +72,6 @@ export default function Cart(props: CartProps) {
   let currentAmount: number;
 
   useEffect(() => {
-    console.log('hi');
     setLocalCartData(
       Cookies.get(cartCookieKey) ? getParsedCookie(cartCookieKey) : [],
     );

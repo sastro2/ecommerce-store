@@ -2,6 +2,7 @@ import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { createCsrfToken } from '../../util/auth';
+import { setStringifiedCookieWithOptions } from '../../util/cookies';
 import { getValidSessionByToken } from '../../util/Database';
 import { LoginResponseBody } from '../api/Authentication/Login';
 
@@ -19,8 +20,11 @@ export default function Login(props: LoginPageProps) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<Errors>([]);
+  let userId: number;
 
   const router = useRouter();
+
+  const isLoggedInCookieKey = 'loggedIn';
 
   return (
     <div>
@@ -48,6 +52,11 @@ export default function Login(props: LoginPageProps) {
             return;
           }
 
+          if ('user' in loginResponseBody) {
+            console.log(loginResponseBody.user.id);
+            userId = loginResponseBody.user.id;
+          }
+
           const returnTo = router.query.returnTo;
           console.log('returnTo', returnTo);
 
@@ -59,7 +68,20 @@ export default function Login(props: LoginPageProps) {
             await router.push(returnTo);
             return;
           }
+          console.log(userId);
 
+          setStringifiedCookieWithOptions(
+            isLoggedInCookieKey,
+            [
+              {
+                isLoggedIn: true,
+                user: userId,
+              },
+            ],
+            {
+              expires: new Date(Date.now() + 60 * 60 * 24 * 1000),
+            },
+          );
           props.refreshUserProfile();
           await router.push(`/`);
         }}

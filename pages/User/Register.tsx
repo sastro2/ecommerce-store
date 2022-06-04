@@ -2,6 +2,7 @@ import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { createCsrfToken } from '../../util/auth';
+import { setStringifiedCookie } from '../../util/cookies';
 import { getValidSessionByToken } from '../../util/Database';
 import { RegisterResponseBody } from '../api/Authentication/Register';
 
@@ -17,8 +18,11 @@ export default function Register(props: RegisterPageProps) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<Errors>([]);
+  let userId: number;
 
   const router = useRouter();
+
+  const isLoggedInCookieKey = 'loggedIn';
 
   return (
     <div>
@@ -47,6 +51,16 @@ export default function Register(props: RegisterPageProps) {
             return;
           }
 
+          if ('user' in registerResponseBody) {
+            userId = registerResponseBody.user.id;
+          }
+
+          setStringifiedCookie(isLoggedInCookieKey, [
+            {
+              isLoggedIn: true,
+              user: userId,
+            },
+          ]);
           props.refreshUserProfile();
           await router.push('/');
         }}

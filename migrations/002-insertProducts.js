@@ -1,7 +1,7 @@
 const products = [
   {
-    product_slug: 'sans-doheny-sneaker',
-    product_name: 'Sans Doheny Sneaker',
+    product_slug: 'shoe',
+    product_name: 'Shoe',
     product_imgpath: '/Images/Schuhe_ecommerce.jpg',
     product_price: 10,
     product_description: 'Just a single shoe if you have two feet buy two :)',

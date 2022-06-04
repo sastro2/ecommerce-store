@@ -23,6 +23,14 @@ export function deleteCookie(key: string) {
   Cookies.remove(key);
 }
 
+export function setStringifiedCookieWithOptions(
+  key: string,
+  value: any,
+  options: any,
+) {
+  Cookies.set(key, JSON.stringify(value), options);
+}
+
 export function createSerializedRegisterSessionTokenCookie(token: string) {
   const isProduction = process.env.NODE_ENV === 'production';
 

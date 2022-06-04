@@ -1,7 +1,6 @@
 import { Button } from 'react-bootstrap';
 
 export default function SearchPage(props) {
-  console.log(props.productsToDisplay);
   return props.productsToDisplay.map((product) => {
     return (
       <section key={product.id}>

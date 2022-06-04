@@ -17,10 +17,8 @@ function MyApp({ Component, pageProps }) {
   const refreshUserProfile = useCallback(async () => {
     const response = await fetch('/api/Authentication/GetProfile');
     const data = await response.json();
-    console.log(data);
 
     if ('errors' in data) {
-      console.log(data.errors);
       setUser(undefined);
       return;
     }
@@ -39,7 +37,12 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <SSRProvider>
-      <BaseLayout rerender={rerender} setRerender={setRerender}>
+      <BaseLayout
+        rerender={rerender}
+        setRerender={setRerender}
+        userObject={user}
+        refreshUserProfile={refreshUserProfile}
+      >
         <Component
           {...pageProps}
           rerender={rerender}
