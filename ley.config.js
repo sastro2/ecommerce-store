@@ -1,26 +1,19 @@
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const { Client } = require('pg');
+function setPostgresDefaultsOnHeroku() {
+  if (process.env.DATABASE_URL) {
+    const { parse } = require('pg-connection-string');
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
+    // Extract the connection information from the Heroku environment variable
+    const { host, database, user, password } = parse(process.env.DATABASE_URL);
 
-client.connect();
+    // Set standard environment variables
+    process.env.PGHOST = host;
+    process.env.PGDATABASE = database;
+    process.env.PGUSERNAME = user;
+    process.env.PGPASSWORD = password;
+  }
+}
 
-client.query(
-  'SELECT table_schema,table_name FROM information_schema.tables;',
-  (err, res) => {
-    if (err) throw err;
-    // eslint-disable-next-line prefer-const
-    for (let row of res.rows) {
-      console.log(JSON.stringify(row));
-    }
-    client.end();
-  },
-);
+setPostgresDefaultsOnHeroku();
 
 const options = {};
 
