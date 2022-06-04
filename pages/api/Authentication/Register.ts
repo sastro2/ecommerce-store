@@ -1,7 +1,6 @@
 import crypto from 'node:crypto';
 import bcrypt from 'bcrypt';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { verifyCsrfToken } from '../../../util/auth';
 import { createSerializedRegisterSessionTokenCookie } from '../../../util/cookies';
 import {
   createSession,

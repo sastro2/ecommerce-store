@@ -10,7 +10,6 @@ type Errors = { message: string }[];
 
 type RegisterPageProps = {
   refreshUserProfile: () => void;
-  userObject: { username: string };
   csrfToken: string;
 };
 

@@ -12,7 +12,6 @@ type Errors = {
 
 type LoginPageProps = {
   refreshUserProfile: () => void;
-  userObject: { username: string };
   csrfToken: string;
 };
 

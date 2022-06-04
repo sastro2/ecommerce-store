@@ -203,6 +203,7 @@ export function Checkout() {
             </PaymentElement>
             <button
               data-test-id="checkout-confirm-order"
+              // eslint-disable-next-line @upleveled/upleveled/no-unnecessary-html-attributes
               type="submit"
               disabled={!stripeInstance}
             >
