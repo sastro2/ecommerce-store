@@ -4,5 +4,7 @@ export default function handler(
   request: NextApiRequest,
   response: NextApiResponse,
 ) {
-  response.json({ Checkout: 'http://examplestore-test/api/Data/Products' });
+  response.json({
+    Checkout: 'http://examplestore-test.herokuapp.com/api/Data/Products',
+  });
 }

@@ -5,7 +5,7 @@ export default function handler(
   response: NextApiResponse,
 ) {
   response.json({
-    Data: 'http://examplestore-test/api/Data',
-    Methods: 'http://examplestore-test/api/Methods',
+    Data: 'http://examplestore-test.herokuapp.com/api/Data',
+    Methods: 'http://examplestore-test.herokuapp.com/api/Methods',
   });
 }

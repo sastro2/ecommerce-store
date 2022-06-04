@@ -121,7 +121,10 @@ export default function Product(props: ProductPageProps) {
               >
                 Add to Cart
               </Button>
-              <Button href="http://examplestore-test/Cart" variant="secondary">
+              <Button
+                href="http://examplestore-test.herokuapp.com/Cart"
+                variant="secondary"
+              >
                 Go to Cart
               </Button>
               <p>{props.product.product_description}</p>
