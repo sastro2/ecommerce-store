@@ -4,7 +4,9 @@ import postgres from 'postgres';
 
 config();
 
-const sql = postgres({ ssl: { rejectUnauthorized: false } });
+// for heroku const sql = postgres({ ssl: { rejectUnauthorized: false } });
+
+const sql = postgres();
 
 export async function GetAllProducts() {
   const products = await sql`

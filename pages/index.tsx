@@ -3,22 +3,6 @@ import Head from 'next/head';
 import { Button, Card, Carousel, Col, Container, Row } from 'react-bootstrap';
 import { GetAllProducts } from '../util/Database';
 
-const carouselStyles = css`
-  height: 800px;
-`;
-const carouselImageStyle = css`
-  height: 800px;
-`;
-
-const baseProductsGridStyle = css`
-  margin-left: 350px;
-  margin-top: 50px;
-`;
-
-const productCardStyle = css`
-  margin-top: 15px;
-`;
-
 type IndexProps = {
   productsToDisplay: Product[];
 };
@@ -37,10 +21,9 @@ export default function Home(props: IndexProps) {
       </Head>
 
       <main>
-        <Carousel css={carouselStyles} variant="dark">
+        <Carousel variant="dark">
           <Carousel.Item>
             <img
-              css={carouselImageStyle}
               className="d-block w-100 h-70"
               src="https://hinacreates.com/wp-content/uploads/2021/06/dummy2.png"
               alt="First slide"
@@ -52,7 +35,6 @@ export default function Home(props: IndexProps) {
           </Carousel.Item>
           <Carousel.Item>
             <img
-              css={carouselImageStyle}
               className="d-block w-100 h-70"
               src="https://hinacreates.com/wp-content/uploads/2021/06/dummy2.png"
               alt="Second slide"
@@ -65,7 +47,6 @@ export default function Home(props: IndexProps) {
           </Carousel.Item>
           <Carousel.Item>
             <img
-              css={carouselImageStyle}
               className="d-block w-100 h-70"
               src="https://hinacreates.com/wp-content/uploads/2021/06/dummy2.png"
               alt="Third slide"
@@ -80,13 +61,20 @@ export default function Home(props: IndexProps) {
           </Carousel.Item>
         </Carousel>
 
-        <Container css={baseProductsGridStyle}>
-          <Row md={5}>
-            <Col md={1} />
+        <Container>
+          <Row>
             {firstRow.map((product) => {
               return (
-                <Col key={product.product_name} md={3} css={productCardStyle}>
-                  <Card style={{ width: '18rem' }}>
+                <Col
+                  key={product.product_name}
+                  style={{ marginTop: '20px' }}
+                  md={4}
+                >
+                  <Card
+                    style={{
+                      height: '100%',
+                    }}
+                  >
                     <Card.Img variant="top" src={product.product_imgpath} />
                     <Card.Body>
                       <Card.Title>{product.product_name}</Card.Title>
@@ -106,12 +94,15 @@ export default function Home(props: IndexProps) {
               );
             })}
           </Row>
-          <Row md={5}>
-            <Col md={1} />
+          <Row>
             {secondRow.map((product) => {
               return (
-                <Col key={product.product_name} md={3} css={productCardStyle}>
-                  <Card style={{ width: '18rem' }}>
+                <Col
+                  key={product.product_name}
+                  style={{ marginTop: '20px' }}
+                  md={4}
+                >
+                  <Card>
                     <Card.Img variant="top" src={product.product_imgpath} />
                     <Card.Body>
                       <Card.Title>{product.product_name}</Card.Title>
@@ -131,12 +122,15 @@ export default function Home(props: IndexProps) {
               );
             })}
           </Row>
-          <Row md={5}>
-            <Col md={1} />
+          <Row>
             {thirdRow.map((product) => {
               return (
-                <Col key={product.product_name} md={3} css={productCardStyle}>
-                  <Card style={{ width: '18rem' }}>
+                <Col
+                  key={product.product_name}
+                  style={{ marginTop: '20px' }}
+                  md={4}
+                >
+                  <Card>
                     <Card.Img variant="top" src={product.product_imgpath} />
                     <Card.Body>
                       <Card.Title>{product.product_name}</Card.Title>
