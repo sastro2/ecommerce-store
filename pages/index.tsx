@@ -1,4 +1,3 @@
-import { css } from '@emotion/react';
 import Head from 'next/head';
 import { Button, Card, Carousel, Col, Container, Row } from 'react-bootstrap';
 import { GetAllProducts } from '../util/Database';
