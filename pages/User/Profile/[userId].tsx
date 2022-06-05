@@ -71,6 +71,8 @@ export async function getServerSideProps(
 
   const user = await getUserByValidSessionToken(session);
 
+  console.log(user, userId);
+
   if (!user) {
     return {
       props: {
@@ -86,7 +88,7 @@ export async function getServerSideProps(
       },
     };
   }
-
+  console.log('i passed the checks');
   return {
     props: {
       user: user,
