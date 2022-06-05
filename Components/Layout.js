@@ -1,4 +1,3 @@
-import { css } from '@emotion/react';
 import Cookies from 'js-cookie';
 import { useEffect, useRef, useState } from 'react';
 import {
@@ -11,10 +10,6 @@ import {
 } from 'react-bootstrap';
 import { getParsedCookie, setStringifiedCookie } from '../util/cookies';
 import SearchPage from './SearchPage';
-
-const baseNavbarStyle = css`
-  display: flex;
-`;
 
 const cartCookieKey = 'cart';
 let amountOfItemsInCart;
@@ -66,7 +61,12 @@ export default function BaseLayout(props) {
   if (!loggedIn) {
     return (
       <>
-        <Navbar bg="dark" expand="lg" variant="dark" css={baseNavbarStyle}>
+        <Navbar
+          bg="dark"
+          expand="lg"
+          variant="dark"
+          style={{ display: 'flex' }}
+        >
           <Container>
             <Navbar.Brand href="#home">Store</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -111,14 +111,21 @@ export default function BaseLayout(props) {
         ) : (
           props.children
         )}
-        <footer>Copyright n stuff</footer>
+        <footer
+          style={{
+            background: 'grey',
+            padding: '2rem',
+          }}
+        >
+          Store 2022. All rights reserved lol
+        </footer>
       </>
     );
   }
 
   return (
     <>
-      <Navbar bg="dark" expand="lg" variant="dark" css={baseNavbarStyle}>
+      <Navbar bg="dark" expand="lg" variant="dark" style={{ display: 'flex' }}>
         <Container>
           <Navbar.Brand href="#home">Store</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -164,12 +171,21 @@ export default function BaseLayout(props) {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {searching ? (
-        <SearchPage productsToDisplay={productsToDisplay} />
-      ) : (
-        props.children
-      )}
-      <footer>Copyright n stuff</footer>
+      <div style={{ paddingBottom: '2rem' }}>
+        {searching ? (
+          <SearchPage productsToDisplay={productsToDisplay} />
+        ) : (
+          props.children
+        )}
+      </div>
+      <footer
+        style={{
+          background: 'grey',
+          padding: '2rem',
+        }}
+      >
+        Store 2022. All rights reserved lol
+      </footer>
     </>
   );
 }

@@ -14,4 +14,10 @@ declare global {
     itemId: number;
     amount: number;
   };
+
+  type ProductPageProps = {
+    product: Product | null;
+    rerender: boolean;
+    setRerender: (rerender: boolean) => void;
+  };
 }

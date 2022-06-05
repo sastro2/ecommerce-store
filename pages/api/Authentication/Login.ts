@@ -97,6 +97,7 @@ export default async function loginHandler(
     const serializedCookie = await createSerializedRegisterSessionTokenCookie(
       session.token,
     );
+    console.log(serializedCookie);
     response
       .status(201)
       .setHeader('Set-Cookie', serializedCookie)

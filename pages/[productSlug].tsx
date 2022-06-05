@@ -1,26 +1,11 @@
-import { css } from '@emotion/react';
 import Cookies from 'js-cookie';
 import { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
-import { useRef } from 'react';
-import { Button, Card } from 'react-bootstrap';
+import { useRef, useState } from 'react';
+import { Button, Card, Col, Container, Offcanvas, Row } from 'react-bootstrap';
 import { GetAmountOfItemsInCart } from '../Components/Layout';
 import { getParsedCookie, setStringifiedCookie } from '../util/cookies';
 import { GetAllProducts } from '../util/Database';
-
-const baseProductSectionStyle = css`
-  margin-top: 50px;
-  display: flex;
-  margin-left: 18%;
-  margin-right: 18%;
-  justify-content: space-between;
-`;
-
-type ProductPageProps = {
-  product: Product | null;
-  rerender: boolean;
-  setRerender: (rerender: boolean) => void;
-};
 
 export const addProductToCart = (
   currentAmount: number,
@@ -60,17 +45,17 @@ export const addProductToCart = (
   setStringifiedCookie(cartCookieKey, newCart);
 };
 
+const cartCookieKey: string = 'cart';
+let currentAmount: number = 1;
+
+const handleAddToCartClick = (props: ProductPageProps) => {
+  addProductToCart(currentAmount, cartCookieKey, props.product);
+  GetAmountOfItemsInCart();
+  props.setRerender(!props.rerender);
+};
+
 export default function Product(props: ProductPageProps) {
   const handleAmountOfItem = useRef<HTMLSelectElement>(null);
-
-  const cartCookieKey: string = 'cart';
-  let currentAmount: number = 1;
-
-  const handleAddToCartClick = () => {
-    addProductToCart(currentAmount, cartCookieKey, props.product);
-    GetAmountOfItemsInCart();
-    props.setRerender(!props.rerender);
-  };
 
   const ChangeCurrentAmount = () => {
     if (handleAmountOfItem.current?.value) {
@@ -81,61 +66,103 @@ export default function Product(props: ProductPageProps) {
   if (props.product !== null) {
     return (
       <main>
-        <section css={baseProductSectionStyle}>
-          <Image src={props.product.product_imgpath} width="810" height="614" />
-          <Card style={{ width: '22rem' }}>
-            <Card.Body>
-              <Card.Title>
-                <h1>{props.product.product_name}</h1>
-              </Card.Title>
-              <Card.Subtitle
-                className="mb-2 text-muted"
-                data-test-id="product-price"
-              >
-                {props.product.product_price}
-              </Card.Subtitle>
-              <Card.Text>
-                <select
-                  data-test-id="product-quantity"
-                  ref={handleAmountOfItem}
-                  onChange={ChangeCurrentAmount}
-                  defaultValue="1"
-                  placeholder="Qty"
-                >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
-              </Card.Text>
-              <Button
-                variant="primary"
-                data-test-id="product-add-to-cart"
-                onClick={handleAddToCartClick}
-              >
-                Add to Cart
-              </Button>
-              <Button
-                href="http://examplestore-test.herokuapp.com/Cart"
-                variant="secondary"
-              >
-                Go to Cart
-              </Button>
-              <p>{props.product.product_description}</p>
-            </Card.Body>
-          </Card>
+        <section>
+          <Container>
+            <Row>
+              <Col lg={9}>
+                <Image
+                  src={props.product.product_imgpath}
+                  width="810"
+                  height="614"
+                  className="mt-xs-5 mt-lg-3"
+                />
+              </Col>
+              <Col lg={3}>
+                <Card className="mt-xs-2 mt-lg-5 ml-lg-3">
+                  <Card.Body>
+                    <Card.Title>
+                      <h1>{props.product.product_name}</h1>
+                    </Card.Title>
+                    <Card.Subtitle
+                      className="mb-2 text-muted"
+                      data-test-id="product-price"
+                    >
+                      {props.product.product_price}
+                    </Card.Subtitle>
+                    <Card.Text>
+                      <select
+                        data-test-id="product-quantity"
+                        ref={handleAmountOfItem}
+                        onChange={ChangeCurrentAmount}
+                        defaultValue="1"
+                        placeholder="Qty"
+                      >
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                      </select>
+                    </Card.Text>
+                    <OffCanvasExample {...props} />
+                    <p>{props.product.product_description}</p>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
         </section>
       </main>
     );
   } else {
     return <h1>Could not find page</h1>;
   }
+}
+
+function OffCanvasExample(props: ProductPageProps) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <>
+      <Button
+        variant="primary"
+        data-test-id="product-add-to-cart"
+        onClick={() => {
+          handleAddToCartClick(props);
+          handleShow();
+        }}
+      >
+        Add to Cart
+      </Button>
+      <Offcanvas
+        show={show}
+        onHide={handleClose}
+        placement="end"
+        name="cartSlide"
+      >
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Your cart</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          Show full cart here in the future
+          <Button
+            href="http://examplestore-test.herokuapp.com/Cart"
+            variant="secondary"
+          >
+            Go to Cart
+          </Button>
+        </Offcanvas.Body>
+      </Offcanvas>
+    </>
+  );
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {

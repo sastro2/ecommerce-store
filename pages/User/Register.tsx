@@ -9,7 +9,6 @@ import { RegisterResponseBody } from '../api/Authentication/Register';
 type Errors = { message: string }[];
 
 type RegisterPageProps = {
-  refreshUserProfile: () => void;
   csrfToken: string;
 };
 
@@ -60,7 +59,6 @@ export default function Register(props: RegisterPageProps) {
               user: userId,
             },
           ]);
-          props.refreshUserProfile();
           await router.push('/');
         }}
       >

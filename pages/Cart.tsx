@@ -1,33 +1,10 @@
-import { css } from '@emotion/react';
 import Cookies from 'js-cookie';
 import { GetServerSidePropsContext } from 'next';
 import { useEffect, useRef, useState } from 'react';
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { GetAmountOfItemsInCart } from '../Components/Layout';
 import { getParsedCookie, setStringifiedCookie } from '../util/cookies';
 import { GetAllProducts } from '../util/Database';
-
-const baseCartStyle = css`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 75px;
-  margin-left: 350px;
-  margin-right: 350px;
-`;
-
-const productContainerStyle = css`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 15px;
-  border: 0.5px solid gray;
-  border-radius: 5px;
-`;
-
-const productNameStyle = css`
-  margin-right: 350px;
-`;
 
 type CartProps = {
   products: Product[];
@@ -37,7 +14,7 @@ type CartProps = {
 };
 
 export const calculate = (
-  localCartData: CookieCartItem[],
+  localCartData: CookieCartItem[] | [],
   products: Product[],
   totalPriceCookieKey: string,
 ) => {
@@ -122,77 +99,98 @@ export default function Cart(props: CartProps) {
     }
   };
 
-  if (props.products !== []) {
+  if (localCartData.length !== 0) {
     return (
-      <main css={baseCartStyle}>
-        <ul>
-          {localCartData.map((item) => {
-            currentItem = props.products.find(
-              (product) => product.id === item.itemId,
-            );
-            if (currentItem) {
-              return (
-                <article
-                  key={`cartItem-${item.itemId}`}
-                  data-test-id={`cart-product-${currentItem.product_slug}`}
-                  css={productContainerStyle}
-                >
-                  <div css={productNameStyle}>
-                    <h1>{currentItem.product_name}</h1>
-                    <button
-                      data-test-id={`cart-product-remove-${currentItem.product_slug}`}
-                      onClick={() => RemoveItem(item)}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                  <div>
-                    <p>
-                      Amount:{' '}
-                      <select
-                        ref={handleAmountOfItem}
-                        onChange={() => ChangeCurrentAmount(item)}
-                        defaultValue={item.amount.toString()}
-                        data-test-id={`cart-product-quantity-${currentItem.product_slug}`}
-                      >
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                      </select>
-                    </p>
-                    <p>Price: {currentItem.product_price}</p>
-                  </div>
-                </article>
-              );
-            } else {
-              return null;
-            }
-          })}
-        </ul>
-        <Card style={{ width: '18rem' }}>
-          <Card.Body>
-            <Card.Title data-test-id="cart-total">
-              Total price: {calculateTotalPrice()}
-            </Card.Title>
-            <Button
-              data-test-id="cart-checkout"
-              href="http://examplestore-test.herokuapp.com/Checkout"
-            >
-              Go to checkout
-            </Button>
-          </Card.Body>
-        </Card>
+      <main>
+        <Container>
+          <Row>
+            <Col md={9}>
+              <Card>
+                <ul>
+                  {localCartData.map((item) => {
+                    currentItem = props.products.find(
+                      (product) => product.id === item.itemId,
+                    );
+                    if (currentItem) {
+                      return (
+                        <article
+                          key={`cartItem-${item.itemId}`}
+                          data-test-id={`cart-product-${currentItem.product_slug}`}
+                        >
+                          <div>
+                            <h1>{currentItem.product_name}</h1>
+                            <button
+                              data-test-id={`cart-product-remove-${currentItem.product_slug}`}
+                              onClick={() => RemoveItem(item)}
+                            >
+                              Remove
+                            </button>
+                          </div>
+                          <div>
+                            <p>
+                              Amount:{' '}
+                              <select
+                                ref={handleAmountOfItem}
+                                onChange={() => ChangeCurrentAmount(item)}
+                                defaultValue={item.amount.toString()}
+                                data-test-id={`cart-product-quantity-${currentItem.product_slug}`}
+                              >
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                              </select>
+                            </p>
+                            <p>Price: {currentItem.product_price}</p>
+                          </div>
+                        </article>
+                      );
+                    } else {
+                      return null;
+                    }
+                  })}
+                </ul>
+              </Card>
+            </Col>
+            <Col md={3}>
+              {' '}
+              <Card>
+                <Card.Body>
+                  <Card.Title data-test-id="cart-total">
+                    Total price: {calculateTotalPrice()}
+                  </Card.Title>
+                  <Button
+                    data-test-id="cart-checkout"
+                    href="http://examplestore-test.herokuapp.com/Checkout"
+                  >
+                    Go to checkout
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
       </main>
     );
   } else {
-    return <h1>There are no items in your cart :C</h1>;
+    return (
+      <h1
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: '3rem',
+        }}
+      >
+        There are no items in your cart :C
+      </h1>
+    );
   }
 }
 
