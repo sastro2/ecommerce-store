@@ -68,7 +68,9 @@ export default function BaseLayout(props) {
           style={{ display: 'flex' }}
         >
           <Container>
-            <Navbar.Brand href="#home">Store</Navbar.Brand>
+            <Navbar.Brand href="https://examplestore-test.herokuapp.com/">
+              Store
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
@@ -106,7 +108,7 @@ export default function BaseLayout(props) {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-        {searching ? (
+        {searching && handleSearchbar.current.value ? (
           <SearchPage productsToDisplay={productsToDisplay} />
         ) : (
           props.children
@@ -172,7 +174,7 @@ export default function BaseLayout(props) {
         </Container>
       </Navbar>
       <div style={{ paddingBottom: '2rem' }}>
-        {searching ? (
+        {searching && handleSearchbar.current.value ? (
           <SearchPage productsToDisplay={productsToDisplay} />
         ) : (
           props.children

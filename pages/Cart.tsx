@@ -3,6 +3,7 @@ import { GetServerSidePropsContext } from 'next';
 import { useEffect, useRef, useState } from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { GetAmountOfItemsInCart } from '../Components/Layout';
+import ChangeAmountOfItemInCart from '../SharedMethods/ChangeAmountOfItemInCart';
 import { getParsedCookie, setStringifiedCookie } from '../util/cookies';
 import { GetAllProducts } from '../util/Database';
 
@@ -46,7 +47,6 @@ export default function Cart(props: CartProps) {
   const totalPriceCookieKey = 'currentTotalPrice';
   const cartCookieKey = 'cart';
   let currentItem;
-  let currentAmount: number;
 
   useEffect(() => {
     setLocalCartData(
@@ -71,32 +71,9 @@ export default function Cart(props: CartProps) {
     const newCart = currentCart.filter((i: CookieCartItem) => {
       return i.itemId !== item.itemId;
     });
-    setLocalCartData(newCart);
     setStringifiedCookie(cartCookieKey, newCart);
     GetAmountOfItemsInCart();
     props.setRerender(!props.rerender);
-  };
-
-  const ChangeCurrentAmount = (item: CookieCartItem) => {
-    if (handleAmountOfItem.current?.value) {
-      currentAmount = parseInt(handleAmountOfItem.current.value);
-      const currentCart = getParsedCookie(cartCookieKey);
-      const newCart = currentCart.map((i: CookieCartItem) => {
-        const foundProduct: Product | undefined = props.products.find((x) => {
-          return x.id === item.itemId;
-        });
-        const foundProductId: number = foundProduct ? foundProduct.id : -1;
-        if (i.itemId === foundProductId) {
-          return { itemId: i.itemId, amount: currentAmount };
-        } else {
-          return i;
-        }
-      });
-      console.log(newCart);
-      setStringifiedCookie(cartCookieKey, newCart);
-      GetAmountOfItemsInCart();
-      props.setRerender(!props.rerender);
-    }
   };
 
   if (localCartData.length !== 0) {
@@ -131,7 +108,18 @@ export default function Cart(props: CartProps) {
                               Amount:{' '}
                               <select
                                 ref={handleAmountOfItem}
-                                onChange={() => ChangeCurrentAmount(item)}
+                                onChange={() =>
+                                  ChangeAmountOfItemInCart(
+                                    {
+                                      allProducts: props.products,
+                                      rerender: props.rerender,
+                                      setRerender: props.setRerender,
+                                    },
+                                    item,
+                                    handleAmountOfItem,
+                                    cartCookieKey,
+                                  )
+                                }
                                 defaultValue={item.amount.toString()}
                                 data-test-id={`cart-product-quantity-${currentItem.product_slug}`}
                               >

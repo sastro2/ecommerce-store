@@ -1,55 +1,17 @@
-import Cookies from 'js-cookie';
 import { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
-import { useRef, useState } from 'react';
-import { Button, Card, Col, Container, Offcanvas, Row } from 'react-bootstrap';
+import { useRef } from 'react';
+import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import CartOffCanvas, { handleShow } from '../Components/CartOffCanvas';
 import { GetAmountOfItemsInCart } from '../Components/Layout';
-import { getParsedCookie, setStringifiedCookie } from '../util/cookies';
+import { AddProductToCart } from '../SharedMethods/AddProductToCart';
 import { GetAllProducts } from '../util/Database';
-
-export const addProductToCart = (
-  currentAmount: number,
-  cartCookieKey: string,
-  product: Product | null,
-) => {
-  let newCart: CookieCartItem[] = [];
-
-  if (product) {
-    const currentCart: CookieCartItem[] = Cookies.get(cartCookieKey)
-      ? getParsedCookie(cartCookieKey)
-      : [];
-    const itemInCookie: CookieCartItem | undefined = currentCart.find(
-      (item: CookieCartItem) => {
-        return item.itemId === product.id;
-      },
-    );
-
-    if (itemInCookie) {
-      newCart = currentCart.map((item: CookieCartItem) => {
-        if (item.itemId === product.id) {
-          return { itemId: item.itemId, amount: item.amount + currentAmount };
-        } else {
-          return item;
-        }
-      });
-    } else {
-      if (currentAmount > 0) {
-        newCart = [
-          ...currentCart,
-          { itemId: product.id, amount: currentAmount },
-        ];
-      }
-    }
-  }
-  console.log(newCart);
-  setStringifiedCookie(cartCookieKey, newCart);
-};
 
 const cartCookieKey: string = 'cart';
 let currentAmount: number = 1;
 
 const handleAddToCartClick = (props: ProductPageProps) => {
-  addProductToCart(currentAmount, cartCookieKey, props.product);
+  AddProductToCart(currentAmount, cartCookieKey, props.product);
   GetAmountOfItemsInCart();
   props.setRerender(!props.rerender);
 };
@@ -109,7 +71,17 @@ export default function Product(props: ProductPageProps) {
                         <option value="10">10</option>
                       </select>
                     </Card.Text>
-                    <OffCanvasExample {...props} />
+                    <Button
+                      variant="primary"
+                      data-test-id="product-add-to-cart"
+                      onClick={() => {
+                        handleAddToCartClick(props);
+                        handleShow(props);
+                      }}
+                    >
+                      Add to Cart
+                    </Button>
+                    <CartOffCanvas {...props} />
                     <p>{props.product.product_description}</p>
                   </Card.Body>
                 </Card>
@@ -120,49 +92,19 @@ export default function Product(props: ProductPageProps) {
       </main>
     );
   } else {
-    return <h1>Could not find page</h1>;
-  }
-}
-
-function OffCanvasExample(props: ProductPageProps) {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  return (
-    <>
-      <Button
-        variant="primary"
-        data-test-id="product-add-to-cart"
-        onClick={() => {
-          handleAddToCartClick(props);
-          handleShow();
+    return (
+      <h1
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: '3rem',
         }}
       >
-        Add to Cart
-      </Button>
-      <Offcanvas
-        show={show}
-        onHide={handleClose}
-        placement="end"
-        name="cartSlide"
-      >
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Your cart</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          Show full cart here in the future
-          <Button
-            href="https://examplestore-test.herokuapp.com/Cart"
-            variant="secondary"
-          >
-            Go to Cart
-          </Button>
-        </Offcanvas.Body>
-      </Offcanvas>
-    </>
-  );
+        Could not find page
+      </h1>
+    );
+  }
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -180,6 +122,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   return {
     props: {
+      products: products,
       product: foundProduct,
     },
   };

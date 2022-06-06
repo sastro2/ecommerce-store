@@ -18,9 +18,10 @@ export async function GetAllProducts() {
 
 export async function GetFilteredProducts(input: string) {
   const products = await sql`
-    SELECT * FROM products WHERE (LOWER(product_description)) like ${
-      '%' + input + '%'
-    }
+    SELECT * FROM products
+    WHERE (LOWER(product_description)) like ${'%' + input + '%'}
+    OR (LOWER(product_name)) like ${'%' + input + '%'}
+    OR (LOWER(product_keywords)) like ${'%' + input + '%'}
   `;
 
   return products;

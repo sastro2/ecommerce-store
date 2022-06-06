@@ -16,6 +16,7 @@ declare global {
   };
 
   type ProductPageProps = {
+    products: Product[];
     product: Product | null;
     rerender: boolean;
     setRerender: (rerender: boolean) => void;

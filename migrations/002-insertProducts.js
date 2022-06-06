@@ -5,6 +5,7 @@ const products = [
     product_imgpath: '/Images/Schuhe_ecommerce.jpg',
     product_price: 10,
     product_description: 'Just a single shoe if you have two feet buy two :)',
+    product_keywords: 'one',
   },
   {
     product_slug: 'cool-item-2',
@@ -14,6 +15,7 @@ const products = [
     product_price: 20,
     product_description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
+    product_keywords: 'two',
   },
   {
     product_slug: 'cool-item-3',
@@ -23,6 +25,7 @@ const products = [
     product_price: 30,
     product_description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
+    product_keywords: 'three',
   },
   {
     product_slug: 'cool-item-4',
@@ -32,6 +35,7 @@ const products = [
     product_price: 40,
     product_description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
+    product_keywords: 'four',
   },
   {
     product_slug: 'cool-item-5',
@@ -41,6 +45,7 @@ const products = [
     product_price: 50,
     product_description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
+    product_keywords: 'five',
   },
   {
     product_slug: 'cool-item-6',
@@ -50,6 +55,7 @@ const products = [
     product_price: 60,
     product_description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
+    product_keywords: 'six',
   },
   {
     product_slug: 'cool-item-7',
@@ -59,6 +65,7 @@ const products = [
     product_price: 70,
     product_description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
+    product_keywords: 'seven',
   },
   {
     product_slug: 'cool-item-8',
@@ -68,6 +75,7 @@ const products = [
     product_price: 80,
     product_description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
+    product_keywords: 'eight',
   },
   {
     product_slug: 'cool-item-9',
@@ -77,6 +85,7 @@ const products = [
     product_price: 90,
     product_description:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
+    product_keywords: 'nine',
   },
 ];
 
@@ -89,6 +98,7 @@ exports.up = async (sql) => {
       'product_imgpath',
       'product_price',
       'product_description',
+      'product_keywords',
     )}
   `;
 };

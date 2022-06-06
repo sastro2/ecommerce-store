@@ -6,7 +6,8 @@ exports.up = async (sql) => {
       product_name varchar(40) NOT NULL,
       product_imgpath varchar(1000) NOT NULL,
       product_price integer NOT NULL,
-      product_description varchar(1000) NOT NULL
+      product_description varchar(1000) NOT NULL,
+      product_keywords varchar(1000) NOT NULL
     );
   `;
 };
