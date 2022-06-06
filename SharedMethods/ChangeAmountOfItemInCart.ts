@@ -11,13 +11,13 @@ type ChangeAmountOfItemInCartProps = {
 export default function ChangeAmountOfItemInCart(
   props: ChangeAmountOfItemInCartProps,
   item: CookieCartItem,
-  handleAmountOfItem: RefObject<HTMLSelectElement>,
+  handleAmountOfItem: RefObject<HTMLSelectElement[]>,
   cartCookieKey: string,
 ) {
   let currentAmount: number;
 
-  if (handleAmountOfItem.current?.value) {
-    currentAmount = parseInt(handleAmountOfItem.current.value);
+  if (handleAmountOfItem.current![item.itemId].value) {
+    currentAmount = parseInt(handleAmountOfItem.current![item.itemId].value);
     const currentCart = getParsedCookie(cartCookieKey);
     const newCart = currentCart.map((i: CookieCartItem) => {
       const foundProduct = props.allProducts.find((x) => {

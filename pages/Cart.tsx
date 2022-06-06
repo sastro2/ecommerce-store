@@ -42,7 +42,7 @@ export const calculate = (
 export default function Cart(props: CartProps) {
   const [localCartData, setLocalCartData] = useState(props.cart);
 
-  const handleAmountOfItem = useRef<HTMLSelectElement>(null);
+  const handleAmountOfItem = useRef<HTMLSelectElement[]>([]);
 
   const totalPriceCookieKey = 'currentTotalPrice';
   const cartCookieKey = 'cart';
@@ -77,6 +77,7 @@ export default function Cart(props: CartProps) {
   };
 
   if (localCartData.length !== 0) {
+    console.log(handleAmountOfItem);
     return (
       <main>
         <Container>
@@ -107,7 +108,10 @@ export default function Cart(props: CartProps) {
                             <p>
                               Amount:{' '}
                               <select
-                                ref={handleAmountOfItem}
+                                ref={(element) =>
+                                  (handleAmountOfItem.current[item.itemId] =
+                                    element!)
+                                }
                                 onChange={() =>
                                   ChangeAmountOfItemInCart(
                                     {

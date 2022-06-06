@@ -13,7 +13,7 @@ export const handleShow = (props: ProductPageProps) => {
 };
 
 export default function CartOffCanvas(props: ProductPageProps) {
-  const handleAmountOfItem = useRef<HTMLSelectElement>(null);
+  const handleAmountOfItem = useRef<HTMLSelectElement[]>([]);
 
   const cartCookieKey = 'cart';
 
@@ -57,7 +57,10 @@ export default function CartOffCanvas(props: ProductPageProps) {
                         <Card.Text>
                           {currentItem.product_description}{' '}
                           <select
-                            ref={handleAmountOfItem}
+                            ref={(element) =>
+                              (handleAmountOfItem.current[item.itemId] =
+                                element!)
+                            }
                             onChange={() =>
                               ChangeAmountOfItemInCart(
                                 {
