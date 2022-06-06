@@ -5,8 +5,9 @@ export default function handler(
   response: NextApiResponse,
 ) {
   response.json({
-    GetAllProducts: 'http://localhost:3000/api/Data/Products/GetAllProducts',
+    GetAllProducts:
+      'https://examplestore-test.herokuapp.com/api/Data/Products/GetAllProducts',
     GetFilteredProducts:
-      'http://localhost:3000/api/Data/Products/GetFilteredProducts',
+      'https://examplestore-test.herokuapp.com/api/Data/Products/GetFilteredProducts',
   });
 }

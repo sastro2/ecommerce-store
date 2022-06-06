@@ -7,7 +7,6 @@ type Props = {
 };
 
 export default function UserDetail(props: Props) {
-  console.log(props.confirmedSession, props.user);
   if (props.confirmedSession === false) {
     return (
       <h1
@@ -71,8 +70,6 @@ export async function getServerSideProps(
   }
 
   const user = await getUserByValidSessionToken(session);
-
-  console.log(user, userId);
 
   if (!user) {
     return {

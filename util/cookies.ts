@@ -41,7 +41,7 @@ export function createSerializedRegisterSessionTokenCookie(token: string) {
 
     expires: new Date(Date.now() + maxAge * 1000),
 
-    httpOnly: false,
+    httpOnly: true,
     secure: isProduction,
     path: '/',
     sameSite: 'lax',

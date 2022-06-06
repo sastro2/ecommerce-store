@@ -154,7 +154,7 @@ function OffCanvasExample(props: ProductPageProps) {
         <Offcanvas.Body>
           Show full cart here in the future
           <Button
-            href="http://examplestore-test.herokuapp.com/Cart"
+            href="https://examplestore-test.herokuapp.com/Cart"
             variant="secondary"
           >
             Go to Cart

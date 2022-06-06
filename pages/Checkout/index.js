@@ -27,7 +27,7 @@ export function Checkout() {
     const { error } = await stripeInstance.confirmPayment({
       elements,
       confirmParams: {
-        return_url: 'http://examplestore-test.herokuapp.com/Checkout/success',
+        return_url: 'https://examplestore-test.herokuapp.com/Checkout/success',
       },
     });
     if (error.type === 'card_error' || error.type === 'validation_error') {
