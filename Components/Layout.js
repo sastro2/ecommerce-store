@@ -47,7 +47,7 @@ export default function BaseLayout(props) {
   const HandleSearchbarInput = async () => {
     const currentInput = handleSearchbar.current.value;
     const response = await fetch(
-      `http://examplestore-test.herokuapp.com/api/Data/Products/GetFilteredProducts?searchInput=${currentInput}`,
+      `https://examplestore-test.herokuapp.com/api/Data/Products/GetFilteredProducts?searchInput=${currentInput}`,
     );
     productsToDisplay = await response.json();
     setSearching(true);
