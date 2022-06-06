@@ -73,22 +73,22 @@ export default function BaseLayout(props) {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Nav.Link
-                  href="http://examplestore-test.herokuapp.com/"
+                  href="https://examplestore-test.herokuapp.com/"
                   data-test-id="products-link"
                 >
                   Home
                 </Nav.Link>
                 <Nav.Link
-                  href="http://examplestore-test.herokuapp.com/Cart"
+                  href="https://examplestore-test.herokuapp.com/Cart"
                   data-test-id="cart-count"
                 >
                   Cart: {amountOfItemsInCart}
                 </Nav.Link>
                 <NavDropdown title="User" id="basic-nav-dropdown">
-                  <NavDropdown.Item href="http://examplestore-test.herokuapp.com/User/Login">
+                  <NavDropdown.Item href="https://examplestore-test.herokuapp.com/User/Login">
                     Log In
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="http://examplestore-test.herokuapp.com/User/Register">
+                  <NavDropdown.Item href="https://examplestore-test.herokuapp.com/User/Register">
                     Register
                   </NavDropdown.Item>
                 </NavDropdown>
@@ -132,26 +132,26 @@ export default function BaseLayout(props) {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link
-                href="http://examplestore-test.herokuapp.com/"
+                href="https://examplestore-test.herokuapp.com/"
                 data-test-id="products-link"
               >
                 Home
               </Nav.Link>
               <Nav.Link
-                href="http://examplestore-test.herokuapp.com/Cart"
+                href="https://examplestore-test.herokuapp.com/Cart"
                 data-test-id="cart-count"
               >
                 Cart: {amountOfItemsInCart}
               </Nav.Link>
               <NavDropdown title="User" id="basic-nav-dropdown">
                 <NavDropdown.Item
-                  href={`http://examplestore-test.herokuapp.com/User/Profile/${userId}`}
+                  href={`https://examplestore-test.herokuapp.com/User/Profile/${userId}`}
                 >
                   Profile
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item
-                  href="http://examplestore-test.herokuapp.com/User/Logout"
+                  href="https://examplestore-test.herokuapp.com/User/Logout"
                   onClick={handleLogout}
                 >
                   Log out
