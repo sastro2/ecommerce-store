@@ -249,7 +249,7 @@ export default function Wrapper(props) {
 
   useEffect(() => {
     async function CreatePaymentIntent() {
-      await fetch('http://localhost:3000/api/Methods/Checkout', {
+      await fetch('https://examplestore-test.herokuapp.com/api/Methods/Checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount: 1000 }),
