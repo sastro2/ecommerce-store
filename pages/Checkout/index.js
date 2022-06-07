@@ -13,12 +13,14 @@ import { useEffect, useState } from 'react';
 import { Accordion, Col, Container, Row, Spinner } from 'react-bootstrap';
 import * as Yup from 'yup';
 import { getParsedCookie } from '../../util/cookies';
+import { getUserByValidSessionToken } from '../../util/Database';
 
-export function Checkout() {
+export function Checkout(props) {
   const stripeInstance = useStripe();
   const elements = useElements();
 
   const totalPriceCookieKey = 'currentTotalPrice';
+  const cartCookieKey = 'cart';
 
   const handlePayment = async () => {
     if (!stripeInstance || !elements) {
@@ -33,6 +35,26 @@ export function Checkout() {
     if (error.type === 'card_error' || error.type === 'validation_error') {
       alert(error.message);
     }
+  };
+
+  const saveCart = async () => {
+    const cart = getParsedCookie(cartCookieKey);
+    const stringifiedCart = JSON.stringify(cart);
+
+    const orderResponse = await fetch('/api/Data/Orders/CreateOrder', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        cart: stringifiedCart,
+        userId: props.userId,
+      }),
+    });
+
+    console.log('2');
+
+    console.log(orderResponse.json());
   };
 
   const formik = useFormik({
@@ -77,6 +99,7 @@ export function Checkout() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     formik.handleSubmit();
+    await saveCart();
     await handlePayment();
   };
 
@@ -226,14 +249,11 @@ export default function Wrapper(props) {
 
   useEffect(() => {
     async function CreatePaymentIntent() {
-      await fetch(
-        'https://examplestore-test.herokuapp.com//api/Methods/Checkout',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ amount: 1000 }),
-        },
-      )
+      await fetch('http://localhost:3000/api/Methods/Checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: 1000 }),
+      })
         .then((res) => res.json())
         .then((data) => {
           setClientSecret(data.clientSecret);
@@ -272,4 +292,28 @@ export default function Wrapper(props) {
       <Checkout {...props} />
     </Elements>
   );
+}
+
+export async function getServerSideProps(context) {
+  const session = context.req.cookies.sessionToken;
+
+  if (!session) {
+    return {
+      props: {},
+    };
+  }
+
+  const user = await getUserByValidSessionToken(session);
+
+  if (!user) {
+    return {
+      props: {},
+    };
+  }
+
+  return {
+    props: {
+      userId: user.id,
+    },
+  };
 }

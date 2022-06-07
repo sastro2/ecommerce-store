@@ -3,9 +3,6 @@ const roles = [
     role_name: 'administrator',
   },
   {
-    role_name: 'guest',
-  },
-  {
     role_name: 'user',
   },
 ];

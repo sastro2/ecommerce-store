@@ -8,33 +8,27 @@ const products = [
     product_keywords: 'one',
   },
   {
-    product_slug: 'cool-item-2',
-    product_name: 'Cool Item 2',
-    product_imgpath:
-      'https://hinacreates.com/wp-content/uploads/2021/06/dummy2.png',
+    product_slug: 'gregory',
+    product_name: 'Gregory',
+    product_imgpath: '/Images/gregory.jpeg',
     product_price: 20,
-    product_description:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
+    product_description: 'This is Gregory',
     product_keywords: 'two',
   },
   {
-    product_slug: 'cool-item-3',
-    product_name: 'Cool Item 3',
-    product_imgpath:
-      'https://hinacreates.com/wp-content/uploads/2021/06/dummy2.png',
+    product_slug: 'flower',
+    product_name: 'Flower',
+    product_imgpath: '/Images/flower.jpeg',
     product_price: 30,
-    product_description:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
+    product_description: 'A drawing of a flower',
     product_keywords: 'three',
   },
   {
-    product_slug: 'cool-item-4',
-    product_name: 'Cool Item 4',
-    product_imgpath:
-      'https://hinacreates.com/wp-content/uploads/2021/06/dummy2.png',
+    product_slug: 'a-cupcake',
+    product_name: 'A Cupcake',
+    product_imgpath: '/Images/a_cupcake.PNG',
     product_price: 40,
-    product_description:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
+    product_description: 'Yum a cupcake!',
     product_keywords: 'four',
   },
   {

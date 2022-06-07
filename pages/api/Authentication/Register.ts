@@ -58,7 +58,7 @@ export default async function registerHandler(
     }
 
     const passwordHash = await bcrypt.hash(request.body.password, 12);
-    const user = await createUser(request.body.username, passwordHash);
+    const user = await createUser(request.body.username, passwordHash, 2);
 
     const token = crypto.randomBytes(64).toString('base64');
 

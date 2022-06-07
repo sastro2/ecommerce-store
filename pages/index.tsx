@@ -20,12 +20,13 @@ export default function Home(props: IndexProps) {
       </Head>
 
       <main>
-        <Carousel variant="dark">
+        <Carousel variant="dark" style={{ maxHeight: '800px' }}>
           <Carousel.Item>
             <img
               className="d-block w-100 h-70"
-              src="https://hinacreates.com/wp-content/uploads/2021/06/dummy2.png"
+              src="/Images/"
               alt="First slide"
+              style={{ maxHeight: '800px' }}
             />
             <Carousel.Caption>
               <h3>First slide label</h3>
@@ -37,6 +38,7 @@ export default function Home(props: IndexProps) {
               className="d-block w-100 h-70"
               src="https://hinacreates.com/wp-content/uploads/2021/06/dummy2.png"
               alt="Second slide"
+              style={{ maxHeight: '800px' }}
             />
 
             <Carousel.Caption>
@@ -49,6 +51,7 @@ export default function Home(props: IndexProps) {
               className="d-block w-100 h-70"
               src="https://hinacreates.com/wp-content/uploads/2021/06/dummy2.png"
               alt="Third slide"
+              style={{ maxHeight: '800px' }}
             />
 
             <Carousel.Caption>

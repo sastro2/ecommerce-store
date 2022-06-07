@@ -108,11 +108,20 @@ export default function BaseLayout(props) {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-        {searching && handleSearchbar.current.value ? (
-          <SearchPage productsToDisplay={productsToDisplay} />
-        ) : (
-          props.children
-        )}
+        <div
+          style={{
+            paddingBottom: '2rem',
+            display: 'flex',
+            flexDirection: 'column',
+            minHeight: '85vh',
+          }}
+        >
+          {searching && handleSearchbar.current.value ? (
+            <SearchPage productsToDisplay={productsToDisplay} />
+          ) : (
+            props.children
+          )}
+        </div>
         <footer
           style={{
             background: 'grey',
@@ -173,7 +182,14 @@ export default function BaseLayout(props) {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <div style={{ paddingBottom: '2rem' }}>
+      <div
+        style={{
+          paddingBottom: '2rem',
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '85vh',
+        }}
+      >
         {searching && handleSearchbar.current.value ? (
           <SearchPage productsToDisplay={productsToDisplay} />
         ) : (

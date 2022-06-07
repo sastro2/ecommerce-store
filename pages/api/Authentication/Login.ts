@@ -46,6 +46,8 @@ export default async function loginHandler(
       return;
     }
 
+    console.log('1');
+
     const csrfTokenMatches = verifyCsrfToken(request.body.csrfToken);
 
     if (!csrfTokenMatches) {
@@ -58,6 +60,8 @@ export default async function loginHandler(
       });
       return;
     }
+
+    console.log('2');
 
     const userWithPasswordHash = await getUserWithPasswordHashByUsername(
       request.body.username,
@@ -74,6 +78,8 @@ export default async function loginHandler(
       return;
     }
 
+    console.log(userWithPasswordHash);
+
     const passwordMatches = await bcrypt.compare(
       request.body.password,
       userWithPasswordHash.passwordHash,
@@ -89,6 +95,8 @@ export default async function loginHandler(
       });
       return;
     }
+
+    console.log('4');
 
     const sessionToken = crypto.randomBytes(64).toString('base64');
 

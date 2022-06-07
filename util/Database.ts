@@ -6,10 +6,10 @@ config();
 
 // for heroku const sql = postgres({ ssl: { rejectUnauthorized: false } });
 
-const sql = postgres({ ssl: { rejectUnauthorized: false } });
+const sql = postgres();
 
 export async function GetAllProducts() {
-  const products = await sql`
+  const products = await sql<Product[]>`
       SELECT * FROM products
   `;
 
@@ -17,7 +17,7 @@ export async function GetAllProducts() {
 }
 
 export async function GetFilteredProducts(input: string) {
-  const products = await sql`
+  const products = await sql<Product[]>`
     SELECT * FROM products
     WHERE (LOWER(product_description)) like ${'%' + input + '%'}
     OR (LOWER(product_name)) like ${'%' + input + '%'}
@@ -30,6 +30,10 @@ export async function GetFilteredProducts(input: string) {
 export type User = {
   id: number;
   username: string;
+  roleId: number;
+  firstName: string;
+  lastName: string;
+  email: string;
 };
 
 export type UserWithPasswordHash = User & {
@@ -40,7 +44,11 @@ export async function getUserById(id: number) {
   const [user] = await sql<[User | undefined]>`
     SELECT
       id,
-      username
+      username,
+      role_id,
+      first_name,
+      last_name,
+      email
     FROM
       users
     WHERE
@@ -54,7 +62,11 @@ export async function getUserByValidSessionToken(token: string | undefined) {
   const [user] = await sql<[User | undefined]>`
     SELECT
       users.id,
-      users.username
+      users.username,
+      users.role_id,
+      users.first_name,
+      users.last_name,
+      users.email
     FROM
       users,
       sessions
@@ -68,7 +80,13 @@ export async function getUserByValidSessionToken(token: string | undefined) {
 
 export async function getUserByUsername(username: string) {
   const [user] = await sql<[{ id: number } | undefined]>`
-    SELECT id FROM users WHERE username = ${username}
+    SELECT
+      id,
+      role_id,
+      first_name,
+      last_name,
+      email
+     FROM users WHERE username = ${username}
   `;
   return user && camelcaseKeys(user);
 }
@@ -78,7 +96,11 @@ export async function getUserWithPasswordHashByUsername(username: string) {
     SELECT
       id,
       username,
-      password_hash
+      password_hash,
+      role_id,
+      first_name,
+      last_name,
+      email
     FROM
       users
     WHERE
@@ -87,12 +109,16 @@ export async function getUserWithPasswordHashByUsername(username: string) {
   return user && camelcaseKeys(user);
 }
 
-export async function createUser(username: string, passwordHash: string) {
+export async function createUser(
+  username: string,
+  passwordHash: string,
+  roleId: number,
+) {
   const [user] = await sql<[User]>`
     INSERT INTO users
-      (username, password_hash)
+      (username, password_hash, role_id)
     VALUES
-      (${username}, ${passwordHash})
+      (${username}, ${passwordHash}, ${roleId})
     RETURNING
       id,
       username
@@ -160,4 +186,33 @@ export async function deleteExpiredSessions() {
   `;
 
   return sessions.map((session) => camelcaseKeys(session));
+}
+
+export type Order = {
+  id: number;
+  cart: string;
+  userId: number;
+};
+
+export async function createOrder(cart: string, userId: number) {
+  const [order] = await sql<[Order]>`
+    INSERT INTO orders
+      (cart, user_id)
+    VALUES
+      (${cart}, ${userId})
+    RETURNING
+      id,
+      cart
+  `;
+
+  console.log('4');
+  return order;
+}
+
+export async function getAllOrdersForUserById(userId: number) {
+  const orders = await sql<Order[]>`
+    SELECT cart FROM orders WHERE user_id = ${userId}
+  `;
+
+  return orders;
 }
