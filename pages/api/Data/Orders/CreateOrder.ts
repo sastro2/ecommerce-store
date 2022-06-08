@@ -28,8 +28,6 @@ export default async function createOrderHandler(
     });
   }
 
-  console.log('3');
-
   const order = await createOrder(request.body.cart, request.body.userId);
 
   response.status(201).json({ order: order });

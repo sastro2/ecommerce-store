@@ -12,6 +12,7 @@ import {
 import {
   getAllOrdersForUserById,
   GetAllProducts,
+  getAllProductsForUserById,
   getUserByValidSessionToken,
   User,
 } from '../../../util/Database';
@@ -21,6 +22,7 @@ type ProfilePageProps = {
   confirmedSession?: boolean;
   orders?: CookieCartItem[][];
   products?: Product[];
+  userMadeProducts?: Product[];
 };
 
 export default function UserDetail(props: ProfilePageProps) {
@@ -143,7 +145,48 @@ export default function UserDetail(props: ProfilePageProps) {
           })}
         </Tab>
         <Tab eventKey="admin" title="Admin">
-          <h1>You have the administrator role !</h1>
+          <Button
+            variant="info"
+            href="https://examplestore-test.herokuapp.com/User/Profile/Create"
+          >
+            Create a product
+          </Button>
+        </Tab>
+        <Tab eventKey="myProducts" title="My Products">
+          <Container>
+            <Row>
+              {props.userMadeProducts?.map((product) => {
+                return (
+                  <Col
+                    key={product.product_name}
+                    style={{ marginTop: '20px' }}
+                    md={4}
+                  >
+                    <Card
+                      style={{
+                        height: '100%',
+                      }}
+                    >
+                      <Card.Img variant="top" src={product.product_imgpath} />
+                      <Card.Body>
+                        <Card.Title>{product.product_name}</Card.Title>
+                        <Card.Text>
+                          {product.product_description} {product.product_price}
+                        </Card.Text>
+                        <Button
+                          variant="info"
+                          href={`/${product.product_slug}`}
+                          data-test-id={`product-${product.product_slug}`}
+                        >
+                          Go to product
+                        </Button>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                );
+              })}
+            </Row>
+          </Container>
         </Tab>
       </Tabs>
     );
@@ -247,6 +290,7 @@ export async function getServerSideProps(
     confirmedSession?: boolean;
     orders?: CookieCartItem[][];
     products?: Product[];
+    userMadeProducts?: Product[];
   }>
 > {
   const userId = context.query.userId;
@@ -285,12 +329,14 @@ export async function getServerSideProps(
     return JSON.parse(order.cart);
   });
   const allProducts: Product[] = await GetAllProducts();
+  const userMadeProducts: Product[] = await getAllProductsForUserById(user.id);
 
   return {
     props: {
       user: user,
       orders: parsedOrder,
       products: allProducts,
+      userMadeProducts: userMadeProducts,
     },
   };
 }

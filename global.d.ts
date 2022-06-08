@@ -8,6 +8,7 @@ declare global {
     product_imgpath: string;
     product_price: number;
     product_description: string;
+    userId: number;
   };
 
   type CookieCartItem = {
@@ -18,6 +19,13 @@ declare global {
   type ProductPageProps = {
     products: Product[];
     product: Product | null;
+    rerender: boolean;
+    setRerender: (rerender: boolean) => void;
+  };
+
+  type CreatePageProps = {
+    userId?: number;
+    roleId?: number;
     rerender: boolean;
     setRerender: (rerender: boolean) => void;
   };

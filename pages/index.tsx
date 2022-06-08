@@ -1,5 +1,15 @@
 import Head from 'next/head';
-import { Button, Card, Carousel, Col, Container, Row } from 'react-bootstrap';
+import { useState } from 'react';
+import {
+  Button,
+  Card,
+  Carousel,
+  Col,
+  Container,
+  Image,
+  Pagination,
+  Row,
+} from 'react-bootstrap';
 import { GetAllProducts } from '../util/Database';
 
 type IndexProps = {
@@ -7,9 +17,39 @@ type IndexProps = {
 };
 
 export default function Home(props: IndexProps) {
-  const firstRow = props.productsToDisplay.slice(0, 3);
-  const secondRow = props.productsToDisplay.slice(3, 6);
-  const thirdRow = props.productsToDisplay.slice(6, 9);
+  const [activePage, setActivePage] = useState(1);
+
+  const pages = [];
+  const pageAmount = Math.ceil(props.productsToDisplay.length / 9);
+  const productsForPage = props.productsToDisplay.filter((product) => {
+    return (
+      1 + 9 * (activePage - 1) === product.id ||
+      2 + 9 * (activePage - 1) === product.id ||
+      3 + 9 * (activePage - 1) === product.id ||
+      4 + 9 * (activePage - 1) === product.id ||
+      5 + 9 * (activePage - 1) === product.id ||
+      6 + 9 * (activePage - 1) === product.id ||
+      7 + 9 * (activePage - 1) === product.id ||
+      8 + 9 * (activePage - 1) === product.id ||
+      9 + 9 * (activePage - 1) === product.id
+    );
+  });
+
+  const handlePagination = (page: number) => {
+    setActivePage(page);
+  };
+
+  for (let i = 1; i <= pageAmount; i++) {
+    pages.push(
+      <Pagination.Item
+        onClick={() => handlePagination(i)}
+        key={i}
+        active={i === activePage}
+      >
+        {i}
+      </Pagination.Item>,
+    );
+  }
 
   return (
     <div>
@@ -20,52 +60,65 @@ export default function Home(props: IndexProps) {
       </Head>
 
       <main>
-        <Carousel variant="dark" style={{ maxHeight: '800px' }}>
+        <Carousel variant="dark" className="bg-info">
           <Carousel.Item>
-            <img
-              className="d-block w-100 h-70"
-              src="/Images/"
-              alt="First slide"
-              style={{ maxHeight: '800px' }}
-            />
+            <Row>
+              <Col xs={1} />
+              <Col xs={10}>
+                <Image
+                  className="d-block m-auto"
+                  src="/Images/P50-Pro-black.png"
+                  alt="First slide"
+                  fluid
+                />
+              </Col>
+              <Col xs={1} />
+            </Row>
             <Carousel.Caption>
-              <h3>First slide label</h3>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+              <Button variant="dark">Electronics</Button>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
-            <img
-              className="d-block w-100 h-70"
-              src="https://hinacreates.com/wp-content/uploads/2021/06/dummy2.png"
-              alt="Second slide"
-              style={{ maxHeight: '800px' }}
-            />
+            <Row>
+              <Col xs={1} />
+              <Col xs={10}>
+                <Image
+                  className="d-block m-auto"
+                  src="/Images/shoes.png"
+                  alt="Second slide"
+                  fluid
+                />
+              </Col>
+              <Col xs={1} />
+            </Row>
 
             <Carousel.Caption>
-              <h3>Second slide label</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <Button variant="dark">Shoes</Button>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
-            <img
-              className="d-block w-100 h-70"
-              src="https://hinacreates.com/wp-content/uploads/2021/06/dummy2.png"
-              alt="Third slide"
-              style={{ maxHeight: '800px' }}
-            />
+            <Row>
+              <Col xs={1} />
+              <Col xs={10}>
+                <Image
+                  className="d-block m-auto"
+                  src="/Images/doggo.png"
+                  alt="Third slide"
+                  fluid
+                />
+              </Col>
+              <Col xs={1} />
+            </Row>
 
             <Carousel.Caption>
-              <h3>Third slide label</h3>
-              <p>
-                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-              </p>
+              <Button variant="dark">Doggos</Button>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
 
         <Container>
           <Row>
-            {firstRow.map((product) => {
+            {productsForPage.map((product) => {
               return (
                 <Col
                   key={product.product_name}
@@ -96,62 +149,10 @@ export default function Home(props: IndexProps) {
               );
             })}
           </Row>
-          <Row>
-            {secondRow.map((product) => {
-              return (
-                <Col
-                  key={product.product_name}
-                  style={{ marginTop: '20px' }}
-                  md={4}
-                >
-                  <Card>
-                    <Card.Img variant="top" src={product.product_imgpath} />
-                    <Card.Body>
-                      <Card.Title>{product.product_name}</Card.Title>
-                      <Card.Text>
-                        {product.product_description} {product.product_price}
-                      </Card.Text>
-                      <Button
-                        variant="primary"
-                        href={`/${product.product_slug}`}
-                        data-test-id={`product-${product.product_slug}`}
-                      >
-                        Go to product
-                      </Button>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              );
-            })}
-          </Row>
-          <Row>
-            {thirdRow.map((product) => {
-              return (
-                <Col
-                  key={product.product_name}
-                  style={{ marginTop: '20px' }}
-                  md={4}
-                >
-                  <Card>
-                    <Card.Img variant="top" src={product.product_imgpath} />
-                    <Card.Body>
-                      <Card.Title>{product.product_name}</Card.Title>
-                      <Card.Text>
-                        {product.product_description} {product.product_price}
-                      </Card.Text>
-                      <Button
-                        variant="primary"
-                        href={`/${product.product_slug}`}
-                        data-test-id={`product-${product.product_slug}`}
-                      >
-                        Go to product
-                      </Button>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              );
-            })}
-          </Row>
+        </Container>
+
+        <Container className="d-flex justify-content-center mt-3">
+          <Pagination>{pages}</Pagination>
         </Container>
       </main>
     </div>

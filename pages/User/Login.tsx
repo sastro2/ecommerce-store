@@ -93,10 +93,10 @@ export default function Login(props: LoginPageProps) {
                     await router.push(`/`);
                   }}
                 >
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Group className="mb-3" controlId="formBasicUsername">
                     <Form.Label>Username</Form.Label>
                     <Form.Control
-                      placeholder="Enter username"
+                      placeholder="Enter Username"
                       onChange={(event) =>
                         setUsername(event.currentTarget.value)
                       }
@@ -107,7 +107,7 @@ export default function Login(props: LoginPageProps) {
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                       type="password"
-                      placeholder="Enter assword"
+                      placeholder="Enter Password"
                       onChange={(event) =>
                         setPassword(event.currentTarget.value)
                       }

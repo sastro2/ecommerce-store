@@ -216,3 +216,40 @@ export async function getAllOrdersForUserById(userId: number) {
 
   return orders;
 }
+
+export async function createProduct(
+  productSlug: string,
+  productName: string,
+  productImgPath: string,
+  productPrice: number,
+  productDescription: string,
+  productKeywords: string,
+  userId: number,
+) {
+  await sql`
+    INSERT INTO products
+    (product_slug,
+    product_name,
+    product_imgpath,
+    product_price,
+    product_description,
+    product_keywords,
+    user_id)
+    VALUES
+    (${productSlug},
+    ${productName},
+    ${productImgPath},
+    ${productPrice},
+    ${productDescription},
+    ${productKeywords},
+    ${userId})
+  `;
+}
+
+export async function getAllProductsForUserById(userId: number) {
+  const products = await sql<Product[]>`
+    SELECT * FROM products WHERE user_id = ${userId}
+  `;
+
+  return products;
+}
