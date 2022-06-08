@@ -147,7 +147,7 @@ export default function UserDetail(props: ProfilePageProps) {
         <Tab eventKey="admin" title="Admin">
           <Button
             variant="info"
-            href="https://examplestore-test.herokuapp.com/User/Profile/Create"
+            href="https://luzon-store.herokuapp.com/User/Profile/Create"
           >
             Create a product
           </Button>

@@ -6,8 +6,8 @@ export default function handler(
 ) {
   response.json({
     GetAllProducts:
-      'https://examplestore-test.herokuapp.com/api/Data/Products/GetAllProducts',
+      'https://luzon-store.herokuapp.com/api/Data/Products/GetAllProducts',
     GetFilteredProducts:
-      'https://examplestore-test.herokuapp.com/api/Data/Products/GetFilteredProducts',
+      'https://luzon-store.herokuapp.com/api/Data/Products/GetFilteredProducts',
   });
 }

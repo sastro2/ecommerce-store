@@ -33,7 +33,7 @@ export default function CartOffCanvas(props: ProductPageProps) {
       </Offcanvas.Header>
       <Offcanvas.Body>
         <Button
-          href="https://examplestore-test.herokuapp.com/Cart"
+          href="https://luzon-store.herokuapp.com/Cart"
           variant="secondary"
         >
           Go to Cart

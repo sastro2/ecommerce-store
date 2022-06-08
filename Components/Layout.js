@@ -47,7 +47,7 @@ export default function BaseLayout(props) {
   const HandleSearchbarInput = async () => {
     const currentInput = handleSearchbar.current.value;
     const response = await fetch(
-      `https://examplestore-test.herokuapp.com/api/Data/Products/GetFilteredProducts?searchInput=${currentInput}`,
+      `https://luzon-store.herokuapp.com/api/Data/Products/GetFilteredProducts?searchInput=${currentInput}`,
     );
     productsToDisplay = await response.json();
     setSearching(true);
@@ -68,29 +68,29 @@ export default function BaseLayout(props) {
           style={{ display: 'flex' }}
         >
           <Container>
-            <Navbar.Brand href="https://examplestore-test.herokuapp.com/">
-              Store
+            <Navbar.Brand href="https://luzon-store.herokuapp.com/">
+              Luzon
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
                 <Nav.Link
-                  href="https://examplestore-test.herokuapp.com/"
+                  href="https://luzon-store.herokuapp.com/"
                   data-test-id="products-link"
                 >
                   Home
                 </Nav.Link>
                 <Nav.Link
-                  href="https://examplestore-test.herokuapp.com/Cart"
+                  href="https://luzon-store.herokuapp.com/Cart"
                   data-test-id="cart-count"
                 >
                   Cart: {amountOfItemsInCart}
                 </Nav.Link>
                 <NavDropdown title="User" id="basic-nav-dropdown">
-                  <NavDropdown.Item href="https://examplestore-test.herokuapp.com/User/Login">
+                  <NavDropdown.Item href="https://luzon-store.herokuapp.com/User/Login">
                     Log In
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="https://examplestore-test.herokuapp.com/User/Register">
+                  <NavDropdown.Item href="https://luzon-store.herokuapp.com/User/Register">
                     Register
                   </NavDropdown.Item>
                 </NavDropdown>
@@ -138,31 +138,33 @@ export default function BaseLayout(props) {
     <>
       <Navbar bg="dark" expand="lg" variant="dark" style={{ display: 'flex' }}>
         <Container>
-          <Navbar.Brand href="#home">Store</Navbar.Brand>
+          <Navbar.Brand href="https://luzon-store.herokuapp.com/">
+            Luzon
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link
-                href="https://examplestore-test.herokuapp.com/"
+                href="https://luzon-store.herokuapp.com/"
                 data-test-id="products-link"
               >
                 Home
               </Nav.Link>
               <Nav.Link
-                href="https://examplestore-test.herokuapp.com/Cart"
+                href="https://luzon-store.herokuapp.com/Cart"
                 data-test-id="cart-count"
               >
                 Cart: {amountOfItemsInCart}
               </Nav.Link>
               <NavDropdown title="User" id="basic-nav-dropdown">
                 <NavDropdown.Item
-                  href={`https://examplestore-test.herokuapp.com/User/Profile/${userId}`}
+                  href={`https://luzon-store.herokuapp.com/User/Profile/${userId}`}
                 >
                   Profile
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item
-                  href="https://examplestore-test.herokuapp.com/User/Logout"
+                  href="https://luzon-store.herokuapp.com/User/Logout"
                   onClick={handleLogout}
                 >
                   Log out

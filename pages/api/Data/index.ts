@@ -5,6 +5,6 @@ export default function handler(
   response: NextApiResponse,
 ) {
   response.json({
-    Checkout: 'http://examplestore-test.herokuapp.com/api/Data/Products',
+    Checkout: 'https://luzon-store.herokuapp.com/api/Data/Products',
   });
 }

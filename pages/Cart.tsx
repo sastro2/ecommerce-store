@@ -168,7 +168,7 @@ export default function Cart(props: CartProps) {
                     </Card.Title>
                     <Button
                       data-test-id="cart-checkout"
-                      href="https://examplestore-test.herokuapp.com/Checkout"
+                      href="https://luzon-store.herokuapp.com/Checkout"
                     >
                       Go to Checkout
                     </Button>

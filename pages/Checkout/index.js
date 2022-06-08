@@ -30,7 +30,7 @@ export function Checkout(props) {
     const { error } = await stripeInstance.confirmPayment({
       elements,
       confirmParams: {
-        return_url: 'https://examplestore-test.herokuapp.com/Checkout/success',
+        return_url: 'https://luzon-store.herokuapp.com/Checkout/success',
       },
     });
     if (error.type === 'card_error' || error.type === 'validation_error') {
@@ -260,7 +260,7 @@ export default function Wrapper(props) {
   useEffect(() => {
     async function CreatePaymentIntent() {
       await fetch(
-        'https://examplestore-test.herokuapp.com/api/Methods/Checkout',
+        'https://luzon-store.herokuapp.com/api/Methods/Checkout',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
