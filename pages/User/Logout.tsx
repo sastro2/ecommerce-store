@@ -1,9 +1,15 @@
 import { serialize } from 'cookie';
 import { GetServerSidePropsContext } from 'next';
+import Head from 'next/head';
 import { deleteSessionByToken } from '../../util/Database';
 
 export default function Logout() {
-  return null;
+  return (
+    <Head>
+      <title>Logout</title>
+      <meta name="Logout" content="Goodbye see you again soon!" />
+    </Head>
+  );
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
