@@ -28,7 +28,7 @@ export default function ConfirmPasswordModal(props: ConfirmPasswordModalProps) {
     if (!props.user) return;
 
     const response = await fetch(
-      'http://localhost:3000/api/Authentication/ComparePassword',
+      'https://luzon-store.herokuapp.com/api/Authentication/ComparePassword',
       {
         method: 'POST',
         headers: {
@@ -52,15 +52,18 @@ export default function ConfirmPasswordModal(props: ConfirmPasswordModalProps) {
     if ('passwordMatches' in comparePasswordResponseBody) {
       console.log(currentProduct);
       if (comparePasswordResponseBody.passwordMatches) {
-        await fetch('http://localhost:3000/api/Data/Products/DeleteProduct', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+        await fetch(
+          'https://luzon-store.herokuapp.com/api/Data/Products/DeleteProduct',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              productId: currentProduct.id,
+            }),
           },
-          body: JSON.stringify({
-            productId: currentProduct.id,
-          }),
-        });
+        );
 
         setErrors([]);
 
