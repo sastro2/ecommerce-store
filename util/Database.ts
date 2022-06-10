@@ -8,7 +8,7 @@ config();
 
 const sql = postgres({ ssl: { rejectUnauthorized: false } });
 
-export async function GetAllProducts() {
+export async function getAllProducts() {
   const products = await sql<Product[]>`
       SELECT * FROM products
   `;
@@ -16,7 +16,7 @@ export async function GetAllProducts() {
   return products;
 }
 
-export async function GetFilteredProducts(input: string) {
+export async function getFilteredProducts(input: string) {
   const products = await sql<Product[]>`
     SELECT * FROM products
     WHERE (LOWER(product_description)) like ${'%' + input + '%'}
@@ -27,14 +27,74 @@ export async function GetFilteredProducts(input: string) {
   return products;
 }
 
-export type User = {
-  id: number;
-  username: string;
-  roleId: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-};
+export async function getAllProductsForUserById(userId: number) {
+  const products = await sql<Product[]>`
+    SELECT * FROM products WHERE user_id = ${userId}
+  `;
+
+  return products;
+}
+
+export async function createProduct(
+  productSlug: string,
+  productName: string,
+  productImgPath: string,
+  productPrice: number,
+  productDescription: string,
+  productKeywords: string,
+  userId: number,
+) {
+  await sql`
+    INSERT INTO products
+      (product_slug,
+      product_name,
+      product_imgpath,
+      product_price,
+      product_description,
+      product_keywords,
+      user_id)
+    VALUES
+      (${productSlug},
+      ${productName},
+      ${productImgPath},
+      ${productPrice},
+      ${productDescription},
+      ${productKeywords},
+      ${userId})
+  `;
+}
+
+export async function updateProduct(
+  productSlug: string,
+  productName: string,
+  productImgPath: string,
+  productPrice: number,
+  productDescription: string,
+  productKeywords: string,
+  productId: number,
+) {
+  await sql`
+    UPDATE products
+    SET
+      product_slug = ${productSlug},
+      product_name = ${productName},
+      product_imgpath = ${productImgPath},
+      product_price = ${productPrice},
+      product_description = ${productDescription},
+      product_keywords = ${productKeywords}
+    WHERE
+      id = ${productId}
+  `;
+}
+
+export async function deleteProduct(id: number) {
+  await sql`
+      DELETE FROM
+        products
+      WHERE
+				id = ${id}
+	`;
+}
 
 export type UserWithPasswordHash = User & {
   passwordHash: string;
@@ -215,41 +275,4 @@ export async function getAllOrdersForUserById(userId: number) {
   `;
 
   return orders;
-}
-
-export async function createProduct(
-  productSlug: string,
-  productName: string,
-  productImgPath: string,
-  productPrice: number,
-  productDescription: string,
-  productKeywords: string,
-  userId: number,
-) {
-  await sql`
-    INSERT INTO products
-    (product_slug,
-    product_name,
-    product_imgpath,
-    product_price,
-    product_description,
-    product_keywords,
-    user_id)
-    VALUES
-    (${productSlug},
-    ${productName},
-    ${productImgPath},
-    ${productPrice},
-    ${productDescription},
-    ${productKeywords},
-    ${userId})
-  `;
-}
-
-export async function getAllProductsForUserById(userId: number) {
-  const products = await sql<Product[]>`
-    SELECT * FROM products WHERE user_id = ${userId}
-  `;
-
-  return products;
 }

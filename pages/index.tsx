@@ -10,7 +10,7 @@ import {
   Pagination,
   Row,
 } from 'react-bootstrap';
-import { GetAllProducts } from '../util/Database';
+import { getAllProducts } from '../util/Database';
 
 type IndexProps = {
   productsToDisplay: Product[];
@@ -163,7 +163,7 @@ export default function Home(props: IndexProps) {
 }
 
 export async function getServerSideProps() {
-  const products = await GetAllProducts();
+  const products = await getAllProducts();
 
   return {
     props: {

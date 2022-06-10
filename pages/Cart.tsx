@@ -6,7 +6,7 @@ import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { GetAmountOfItemsInCart } from '../Components/Layout';
 import ChangeAmountOfItemInCart from '../SharedMethods/ChangeAmountOfItemInCart';
 import { getParsedCookie, setStringifiedCookie } from '../util/cookies';
-import { GetAllProducts } from '../util/Database';
+import { getAllProducts } from '../util/Database';
 
 type CartProps = {
   products: Product[];
@@ -198,7 +198,7 @@ export default function Cart(props: CartProps) {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const currentCart = JSON.parse(context.req.cookies.cart || '[]');
-  const products = await GetAllProducts();
+  const products = await getAllProducts();
 
   return {
     props: {

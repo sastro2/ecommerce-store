@@ -6,7 +6,7 @@ import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import CartOffCanvas, { handleShow } from '../Components/CartOffCanvas';
 import { GetAmountOfItemsInCart } from '../Components/Layout';
 import { AddProductToCart } from '../SharedMethods/AddProductToCart';
-import { GetAllProducts } from '../util/Database';
+import { getAllProducts } from '../util/Database';
 
 const cartCookieKey: string = 'cart';
 let currentAmount: number = 1;
@@ -118,7 +118,7 @@ export default function Product(props: ProductPageProps) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const products = await GetAllProducts();
+  const products = await getAllProducts();
   console.log(products);
   const foundProduct = products.find((product) => {
     return product.product_slug === context.query.productSlug;

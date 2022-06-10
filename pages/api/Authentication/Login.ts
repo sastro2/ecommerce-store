@@ -6,7 +6,6 @@ import { createSerializedRegisterSessionTokenCookie } from '../../../util/cookie
 import {
   createSession,
   getUserWithPasswordHashByUsername,
-  User,
 } from '../../../util/Database';
 
 type LoginRequestBody = {
@@ -45,8 +44,6 @@ export default async function loginHandler(
       });
       return;
     }
-
-    console.log('1');
 
     const csrfTokenMatches = verifyCsrfToken(request.body.csrfToken);
 
@@ -95,8 +92,6 @@ export default async function loginHandler(
       });
       return;
     }
-
-    console.log('4');
 
     const sessionToken = crypto.randomBytes(64).toString('base64');
 

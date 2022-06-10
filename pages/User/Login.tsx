@@ -8,10 +8,6 @@ import { setStringifiedCookieWithOptions } from '../../util/cookies';
 import { getValidSessionByToken } from '../../util/Database';
 import { LoginResponseBody } from '../api/Authentication/Login';
 
-type Errors = {
-  message: string;
-}[];
-
 type LoginPageProps = {
   csrfToken: string;
 };
@@ -70,12 +66,10 @@ export default function Login(props: LoginPageProps) {
                       }
 
                       if ('user' in loginResponseBody) {
-                        console.log(loginResponseBody.user.id);
                         userId = loginResponseBody.user.id;
                       }
 
                       const returnTo = router.query.returnTo;
-                      console.log('returnTo', returnTo);
 
                       if (
                         returnTo &&
@@ -85,7 +79,6 @@ export default function Login(props: LoginPageProps) {
                         await router.push(returnTo);
                         return;
                       }
-                      console.log(userId);
 
                       setStringifiedCookieWithOptions(
                         isLoggedInCookieKey,

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { GetFilteredProducts } from '../../../../util/Database';
+import { getFilteredProducts } from '../../../../util/Database';
 
 export default async function handler(
   request: NextApiRequest,
@@ -9,7 +9,7 @@ export default async function handler(
     request.method === 'GET' &&
     typeof request.query.searchInput === 'string'
   ) {
-    const products = await GetFilteredProducts(
+    const products = await getFilteredProducts(
       request.query.searchInput.toLowerCase(),
     );
 

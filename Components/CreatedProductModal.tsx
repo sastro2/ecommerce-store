@@ -1,6 +1,6 @@
 import { Button, Card, Modal } from 'react-bootstrap';
 
-type CreatedProductModalProps = Omit<CreatePageProps, 'userId' | 'roleId'>;
+type CreatedProductModalProps = Omit<ProfilePageModalProps, 'user'>;
 
 let showModal = false;
 
@@ -25,9 +25,6 @@ export default function CreatedProductModal(props: CreatedProductModalProps) {
       <Modal.Footer>
         <Button variant="secondary" onClick={() => handleShow(props)}>
           Close
-        </Button>
-        <Button variant="primary" onClick={() => handleShow(props)}>
-          Your Products
         </Button>
       </Modal.Footer>
     </Modal>
