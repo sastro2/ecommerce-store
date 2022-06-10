@@ -6,7 +6,6 @@ import {
   createSession,
   createUser,
   getUserByUsername,
-  User,
 } from '../../../util/Database';
 
 type RegisterRequestBody = {
