@@ -107,7 +107,6 @@ export default function CreateAProduct(props: CreatePageProps) {
 
   return (
     <>
-      <meta name="Checkout with Stripe!" />
       <Head>
         <title>Luzon.com</title>
         <meta name="Create a product" />

@@ -24,7 +24,6 @@ export default function Login(props: LoginPageProps) {
 
   return (
     <>
-      <meta name="Checkout with Stripe!" />
       <Head>
         <title>Login</title>
         <meta name="Login" />

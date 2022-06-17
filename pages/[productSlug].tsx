@@ -29,7 +29,6 @@ export default function Product(props: ProductPageProps) {
   if (props.product !== null) {
     return (
       <>
-        <meta name="Checkout with Stripe!" />
         <Head>
           <title>Product</title>
           <meta name={props.product.product_name} />

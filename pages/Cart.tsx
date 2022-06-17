@@ -81,7 +81,6 @@ export default function Cart(props: CartProps) {
     console.log(handleAmountOfItem);
     return (
       <>
-        <meta name="Checkout with Stripe!" />
         <Head>
           <title>Cart</title>
           <meta name="Cart" />

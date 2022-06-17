@@ -106,7 +106,6 @@ export function Checkout(props) {
 
   return (
     <>
-      <meta name="Checkout with Stripe!" />
       <Head>
         <title>Checkout</title>
         <meta name="Checkout with Stripe!" />
