@@ -26,6 +26,11 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/icon-apple-touch.png" />
         <link rel="manifest" href="/manifest.json" />
+        <title>Luzon.com</title>
+        <meta
+          name="Luzon.com"
+          content="If you can want it you can buy it on Luzon"
+        />
       </Head>
       <SSRProvider>
         <BaseLayout rerender={rerender} setRerender={setRerender}>

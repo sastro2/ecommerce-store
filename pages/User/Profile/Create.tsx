@@ -1,4 +1,5 @@
 import { GetServerSidePropsContext } from 'next';
+import Head from 'next/head';
 import { useRef, useState } from 'react';
 import { Button, Col, Container, Form, ListGroup, Row } from 'react-bootstrap';
 import CreatedProductModal, {
@@ -105,63 +106,75 @@ export default function CreateAProduct(props: CreatePageProps) {
   }
 
   return (
-    <Container>
-      <CreatedProductModal {...props} />
-      <Form>
-        <Form.Group className="mb-3" controlId="formBasicProductName">
-          <Form.Label>Product Name</Form.Label>
-          <Form.Control
-            placeholder="Name"
-            onChange={(event) => setName(event.currentTarget.value)}
-            ref={nameHandler}
-          />
-        </Form.Group>
+    <>
+      <Head>
+        <title>Luzon.com</title>
+        <meta
+          name="Create a product"
+          content="Create and customize your own products to sell on Luzon"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Container>
+        <CreatedProductModal {...props} />
+        <Form>
+          <Form.Group className="mb-3" controlId="formBasicProductName">
+            <Form.Label>Product Name</Form.Label>
+            <Form.Control
+              placeholder="Name"
+              onChange={(event) => setName(event.currentTarget.value)}
+              ref={nameHandler}
+            />
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicProductPrice">
-          <Form.Label>Product Price</Form.Label>
-          <Form.Control
-            placeholder="Price in €"
-            onChange={(event) => setPrice(event.currentTarget.value)}
-            ref={priceHandler}
-          />
-        </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicProductPrice">
+            <Form.Label>Product Price</Form.Label>
+            <Form.Control
+              placeholder="Price in €"
+              onChange={(event) => setPrice(event.currentTarget.value)}
+              ref={priceHandler}
+            />
+          </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicProductKeywords">
-          <Form.Label>Product Keywords</Form.Label>
-          <Form.Control
-            placeholder="Press ENTER to add a keyword"
-            onChange={(event) =>
-              setKeyword(event.currentTarget.value.toLowerCase())
-            }
-            onKeyDown={addKeywordToArray}
-            ref={keywordsHandler}
-          />
-        </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicProductKeywords">
+            <Form.Label>Product Keywords</Form.Label>
+            <Form.Control
+              placeholder="Press ENTER to add a keyword"
+              onChange={(event) =>
+                setKeyword(event.currentTarget.value.toLowerCase())
+              }
+              onKeyDown={addKeywordToArray}
+              ref={keywordsHandler}
+            />
+          </Form.Group>
 
-        <Row>
-          {keywords.length > 0 ? (
-            <Col lg={1}>
-              <ListGroup horizontal>
-                {keywords.map((word) => {
-                  iterator++;
-                  return <ListGroup.Item key={iterator}>{word}</ListGroup.Item>;
-                })}
-              </ListGroup>
-            </Col>
-          ) : null}
-        </Row>
+          <Row>
+            {keywords.length > 0 ? (
+              <Col lg={1}>
+                <ListGroup horizontal>
+                  {keywords.map((word) => {
+                    iterator++;
+                    return (
+                      <ListGroup.Item key={iterator}>{word}</ListGroup.Item>
+                    );
+                  })}
+                </ListGroup>
+              </Col>
+            ) : null}
+          </Row>
 
-        <Form.Group className="mb-3" controlId="formBasicProductDescription">
-          <Form.Label>Product Description</Form.Label>
-          <Form.Control
-            placeholder="Description"
-            onChange={(event) => setDescription(event.currentTarget.value)}
-            ref={descriptionHandler}
-          />
-        </Form.Group>
-        <Button onClick={createTheProduct}>Create</Button>
-      </Form>
-    </Container>
+          <Form.Group className="mb-3" controlId="formBasicProductDescription">
+            <Form.Label>Product Description</Form.Label>
+            <Form.Control
+              placeholder="Description"
+              onChange={(event) => setDescription(event.currentTarget.value)}
+              ref={descriptionHandler}
+            />
+          </Form.Group>
+          <Button onClick={createTheProduct}>Create</Button>
+        </Form>
+      </Container>
+    </>
   );
 }
 
