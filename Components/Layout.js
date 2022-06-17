@@ -67,14 +67,18 @@ export default function BaseLayout(props) {
             expand="lg"
             variant="dark"
             style={{ display: 'flex' }}
+            data-test-id="products-link"
           >
-            <Container>
+            <Container data-test-id="products-link">
               <Navbar.Brand href="https://luzon-store.herokuapp.com/">
                 Luzon
               </Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="me-auto">
+              <Navbar.Collapse
+                id="basic-navbar-nav"
+                data-test-id="products-link"
+              >
+                <Nav className="me-auto" data-test-id="products-link">
                   <Nav.Link
                     href="https://luzon-store.herokuapp.com/"
                     data-test-id="products-link"
