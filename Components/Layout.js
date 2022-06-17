@@ -83,9 +83,10 @@ export default function BaseLayout(props) {
                   </Nav.Link>
                   <Nav.Link
                     href="https://luzon-store.herokuapp.com/Cart"
-                    data-test-id="cart-count"
+                    data-test-id="cart-link"
                   >
-                    Cart: {amountOfItemsInCart}
+                    Cart:{' '}
+                    <div data-test-id="cart-count">{amountOfItemsInCart}</div>
                   </Nav.Link>
                   <NavDropdown title="User" id="basic-nav-dropdown">
                     <NavDropdown.Item href="https://luzon-store.herokuapp.com/User/Login">
