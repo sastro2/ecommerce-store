@@ -26,7 +26,7 @@ export default function Login(props: LoginPageProps) {
     <>
       <Head>
         <title>Login</title>
-        <meta name="Login" />
+        <meta name="description" content="Luzon.com" />
       </Head>
       <div>
         <Container>

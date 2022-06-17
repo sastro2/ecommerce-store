@@ -53,10 +53,9 @@ export default function Home(props: IndexProps) {
 
   return (
     <div>
-      <meta name="Luzon.com" content="content" />
       <Head>
         <title>Luzon.com</title>
-        <meta name="Luzon.com" />
+        <meta name="description" content="Luzon.com" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

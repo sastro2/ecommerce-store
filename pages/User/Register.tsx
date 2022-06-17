@@ -28,7 +28,7 @@ export default function Register(props: RegisterPageProps) {
     <>
       <Head>
         <title>Register</title>
-        <meta name="Register" />
+        <meta name="description" content="Luzon.com" />
       </Head>
       <div>
         <Container>

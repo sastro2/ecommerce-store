@@ -7,7 +7,7 @@ export default function Logout() {
   return (
     <Head>
       <title>Logout</title>
-      <meta name="Logout" />
+      <meta name="description" content="Luzon.com" />
     </Head>
   );
 }

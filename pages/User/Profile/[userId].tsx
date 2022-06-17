@@ -58,8 +58,8 @@ export default function UserDetail(props: ProfilePageProps) {
     return (
       <>
         <Head>
-          <title>Luzon.com</title>
-          <meta name="User profile" />
+          <title>Profile</title>
+          <meta name="description" content="Luzon.com" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <ConfirmPasswordModal {...props} />

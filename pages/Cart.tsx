@@ -83,7 +83,7 @@ export default function Cart(props: CartProps) {
       <>
         <Head>
           <title>Cart</title>
-          <meta name="Cart" />
+          <meta name="description" content="Luzon.com" />
         </Head>
         <main>
           <Container>

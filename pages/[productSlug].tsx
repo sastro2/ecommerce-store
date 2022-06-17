@@ -30,8 +30,8 @@ export default function Product(props: ProductPageProps) {
     return (
       <>
         <Head>
-          <title>Product</title>
-          <meta name={props.product.product_name} />
+          <title>{props.product.product_name}</title>
+          <meta name={props.product.product_name} content="Luzon.com" />
         </Head>
         <main>
           <section>

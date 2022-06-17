@@ -8,7 +8,7 @@ export default function Success() {
     <>
       <Head>
         <title>Thank you for your order</title>
-        <meta name="Thank you for your order" />
+        <meta name="description" content="Luzon.com" />
       </Head>
       <h1>Thank you for your order</h1>
     </>
