@@ -232,8 +232,6 @@ export function Checkout(props) {
                     </PaymentElement>
                     <button
                       data-test-id="checkout-confirm-order"
-                      // eslint-disable-next-line @upleveled/upleveled/no-unnecessary-html-attributes
-                      type="submit"
                       disabled={!stripeInstance}
                     >
                       Confirm Order
@@ -259,14 +257,11 @@ export default function Wrapper(props) {
 
   useEffect(() => {
     async function CreatePaymentIntent() {
-      await fetch(
-        'https://luzon-store.herokuapp.com/api/Methods/Checkout',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ amount: 1000 }),
-        },
-      )
+      await fetch('https://luzon-store.herokuapp.com/api/Methods/Checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: 1000 }),
+      })
         .then((res) => res.json())
         .then((data) => {
           setClientSecret(data.clientSecret);
