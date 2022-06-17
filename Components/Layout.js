@@ -61,20 +61,20 @@ export default function BaseLayout(props) {
   if (!loggedIn) {
     return (
       <>
-        <Navbar
-          bg="dark"
-          expand="lg"
-          variant="dark"
-          style={{ display: 'flex' }}
-        >
-          <Container>
-            <Navbar.Brand href="https://luzon-store.herokuapp.com/">
-              Luzon
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="me-auto">
-                <header>
+        <header>
+          <Navbar
+            bg="dark"
+            expand="lg"
+            variant="dark"
+            style={{ display: 'flex' }}
+          >
+            <Container>
+              <Navbar.Brand href="https://luzon-store.herokuapp.com/">
+                Luzon
+              </Navbar.Brand>
+              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="me-auto">
                   <Nav.Link
                     href="https://luzon-store.herokuapp.com/"
                     data-test-id="products-link"
@@ -95,22 +95,21 @@ export default function BaseLayout(props) {
                       Register
                     </NavDropdown.Item>
                   </NavDropdown>
-                </header>
-              </Nav>
-              <Form className="d-flex">
-                <FormControl
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                  onChange={HandleSearchbarInput}
-                  ref={handleSearchbar}
-                />
-              </Form>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
-
+                </Nav>
+                <Form className="d-flex">
+                  <FormControl
+                    type="search"
+                    placeholder="Search"
+                    className="me-2"
+                    aria-label="Search"
+                    onChange={HandleSearchbarInput}
+                    ref={handleSearchbar}
+                  />
+                </Form>
+              </Navbar.Collapse>
+            </Container>
+          </Navbar>
+        </header>
         <div
           style={{
             paddingBottom: '2rem',
@@ -139,15 +138,20 @@ export default function BaseLayout(props) {
 
   return (
     <>
-      <Navbar bg="dark" expand="lg" variant="dark" style={{ display: 'flex' }}>
-        <Container>
-          <Navbar.Brand href="https://luzon-store.herokuapp.com/">
-            Luzon
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <header>
+      <header>
+        <Navbar
+          bg="dark"
+          expand="lg"
+          variant="dark"
+          style={{ display: 'flex' }}
+        >
+          <Container>
+            <Navbar.Brand href="https://luzon-store.herokuapp.com/">
+              Luzon
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="me-auto">
                 <Nav.Link
                   href="https://luzon-store.herokuapp.com/"
                   data-test-id="products-link"
@@ -175,21 +179,21 @@ export default function BaseLayout(props) {
                     Log out
                   </NavDropdown.Item>
                 </NavDropdown>
-              </header>
-            </Nav>
-            <Form className="d-flex">
-              <FormControl
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-                onChange={HandleSearchbarInput}
-                ref={handleSearchbar}
-              />
-            </Form>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+              </Nav>
+              <Form className="d-flex">
+                <FormControl
+                  type="search"
+                  placeholder="Search"
+                  className="me-2"
+                  aria-label="Search"
+                  onChange={HandleSearchbarInput}
+                  ref={handleSearchbar}
+                />
+              </Form>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+      </header>
       <div
         style={{
           paddingBottom: '2rem',
