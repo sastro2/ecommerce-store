@@ -26,6 +26,7 @@ export default function Register(props: RegisterPageProps) {
 
   return (
     <>
+      <meta name="Checkout with Stripe!" />
       <Head>
         <title>Register</title>
         <meta name="Register" />

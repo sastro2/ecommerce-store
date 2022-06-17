@@ -53,6 +53,7 @@ export default function Home(props: IndexProps) {
 
   return (
     <div>
+      <meta name="Checkout with Stripe!" />
       <Head>
         <title>Luzon.com</title>
         <meta name="Luzon.com" />

@@ -21,6 +21,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
+      <meta name="Checkout with Stripe!" />
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

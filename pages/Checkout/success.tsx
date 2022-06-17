@@ -6,6 +6,7 @@ export default function Success() {
 
   return (
     <>
+      <meta name="Checkout with Stripe!" />
       <Head>
         <title>Thank you for your order</title>
         <meta name="Thank you for your order" />

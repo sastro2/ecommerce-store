@@ -57,6 +57,7 @@ export default function UserDetail(props: ProfilePageProps) {
   if (props.user.roleId === 1) {
     return (
       <>
+        <meta name="Checkout with Stripe!" />
         <Head>
           <title>Luzon.com</title>
           <meta name="User profile" />

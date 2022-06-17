@@ -5,10 +5,13 @@ import { deleteSessionByToken } from '../../util/Database';
 
 export default function Logout() {
   return (
-    <Head>
-      <title>Logout</title>
-      <meta name="Logout" />
-    </Head>
+    <>
+      <meta name="Checkout with Stripe!" />
+      <Head>
+        <title>Logout</title>
+        <meta name="Logout" />
+      </Head>
+    </>
   );
 }
 
