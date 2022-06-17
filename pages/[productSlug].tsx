@@ -31,10 +31,7 @@ export default function Product(props: ProductPageProps) {
       <>
         <Head>
           <title>Product</title>
-          <meta
-            name={props.product.product_name}
-            content={props.product.product_name}
-          />
+          <meta name={props.product.product_name} />
         </Head>
         <main>
           <section>

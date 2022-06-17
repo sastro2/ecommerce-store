@@ -109,10 +109,7 @@ export default function CreateAProduct(props: CreatePageProps) {
     <>
       <Head>
         <title>Luzon.com</title>
-        <meta
-          name="Create a product"
-          content="Create and customize your own products to sell on Luzon"
-        />
+        <meta name="Create a product" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>

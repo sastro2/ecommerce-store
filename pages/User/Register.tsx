@@ -28,10 +28,7 @@ export default function Register(props: RegisterPageProps) {
     <>
       <Head>
         <title>Register</title>
-        <meta
-          name="Register"
-          content="Register an account to unluck the full experience"
-        />
+        <meta name="Register" />
       </Head>
       <div>
         <Container>

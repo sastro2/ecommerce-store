@@ -7,7 +7,7 @@ export default function Logout() {
   return (
     <Head>
       <title>Logout</title>
-      <meta name="Logout" content="Goodbye see you again soon!" />
+      <meta name="Logout" />
     </Head>
   );
 }

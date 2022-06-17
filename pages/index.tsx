@@ -55,10 +55,7 @@ export default function Home(props: IndexProps) {
     <div>
       <Head>
         <title>Luzon.com</title>
-        <meta
-          name="Luzon.com"
-          content="If you can want it you can buy it on Luzon"
-        />
+        <meta name="Luzon.com" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

@@ -108,10 +108,7 @@ export function Checkout(props) {
     <>
       <Head>
         <title>Checkout</title>
-        <meta
-          name="Checkout with Stripe!"
-          content="Next day delivery is only a few clicks away!"
-        />
+        <meta name="Checkout with Stripe!" />
       </Head>
       <form onSubmit={handleSubmit}>
         <Container className="mt-5">

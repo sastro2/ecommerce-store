@@ -83,10 +83,7 @@ export default function Cart(props: CartProps) {
       <>
         <Head>
           <title>Cart</title>
-          <meta
-            name="Cart"
-            content='Check your order and click on "Go to Checkout" to proceed!'
-          />
+          <meta name="Cart" />
         </Head>
         <main>
           <Container>

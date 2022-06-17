@@ -26,10 +26,7 @@ export default function Login(props: LoginPageProps) {
     <>
       <Head>
         <title>Login</title>
-        <meta
-          name="Login"
-          content="Login to experience additional features such as order history"
-        />
+        <meta name="Login" />
       </Head>
       <div>
         <Container>
